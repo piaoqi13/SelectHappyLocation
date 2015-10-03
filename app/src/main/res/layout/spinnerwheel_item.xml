@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 滚轮文本显示Item_CollinWang -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp"
+        android:singleLine="true"
+        android:text="飘奇"
+        android:textColor="#F000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+package com.fuwei.selecthappylocation.util;
+
+/**
+ * Created by collin on 2015-10-02.
+ */
+public class Constant {
+    // 主地址
+    private static final String BASE_URL = "http://192.168.1.1:8080/fuwei/app/";
+    // 登录接口
+    private static final String LOGIN = "xxxx";
+    // 生辰八字选号接口
+    private static final String SELECT_NUMBER_BY_BIRTHDAY = "xxxx";
+    // 随机选号接口
+    private static final String SELECT_NUMBER_BY_RANDOM = "xxxx";
+    // 我的选号接口
+    private static final String MY_NUMBER = "xxxx";
+
+    public static String getLoginUrl() {
+        return BASE_URL + LOGIN;
+    }
+
+    public static String getSelectNumberByBirthdayUrl() {
+        return BASE_URL + SELECT_NUMBER_BY_BIRTHDAY;
+    }
+
+    public static String getSelectNumberByRandomUrl() {
+        return BASE_URL + SELECT_NUMBER_BY_RANDOM;
+    }
+
+    public static String getMyNumberUrl() {
+        return BASE_URL + MY_NUMBER;
+    }
+}

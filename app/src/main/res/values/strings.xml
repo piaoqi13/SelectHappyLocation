@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">福位选号</string>
+    <string name="hello_world">Hello SelectHappyLocation</string>
+    <string name="action_settings">Settings</string>
+</resources>
