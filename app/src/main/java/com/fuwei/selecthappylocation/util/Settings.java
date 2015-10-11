@@ -12,6 +12,11 @@ public class Settings {
     public static SharedPreferences mSharedPreference = null;
     public static Editor mEditor = null;
 
+    public static class PublicProperty {// 公共属性
+        public static final String SCREEN_WIDTH = "screen_width";
+        public static final String SCREEN_HEIGHT = "screen_height";
+    }
+
     /**
      * 创建SharedPreferences文件
      */

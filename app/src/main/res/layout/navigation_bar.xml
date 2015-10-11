@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Title导航布局CollinWang -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="48dip"
+    android:background="@color/title_bar"
+    android:gravity="center_vertical" >
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:gravity="center_vertical" >
+		<!-- 左按钮 -->
+        <ImageView
+            android:id="@+id/btn_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/btn_back_selector"
+            android:visibility="gone" />
+		<!-- 左文案 -->
+        <TextView
+            android:id="@+id/btn_left_setting"
+            style="@style/left_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dip"
+            android:text="左导航"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+		<!-- 中间标题 -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+		<!-- 右按钮 -->
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginRight="4dp"
+            android:scaleType="fitXY"
+            android:visibility="invisible" />
+		<!-- 右文案 -->
+        <TextView
+            android:id="@+id/btn_right_setting"
+            style="@style/right_setting_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btn_right"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:text="右导航"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <!-- 分割线 -->
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.6dip"
+        android:layout_below="@+id/rl_title"
+        android:background="@color/divide_color"
+        android:visibility="visible" />
+</RelativeLayout>
