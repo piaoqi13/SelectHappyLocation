@@ -34,4 +34,9 @@ public class StartPageActivity extends Activity {
         setContentView(R.layout.start_page_activity);
         mHandler.sendEmptyMessageDelayed(1, 2 * 1000);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

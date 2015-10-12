@@ -2,4 +2,12 @@
     <string name="app_name">福位选号</string>
     <string name="hello_world">Hello SelectHappyLocation</string>
     <string name="action_settings">Settings</string>
+
+    <string name="bar_title">标题</string>
+    <string name="my_selection">我的选号</string>
+    <string name="end_selection">结束选号</string>
+
+    <string name="fuweibianhao">福位编号：%1$s</string>
+    <string name="fuweiquyu">福位区域：%1$s</string>
+
 </resources>
