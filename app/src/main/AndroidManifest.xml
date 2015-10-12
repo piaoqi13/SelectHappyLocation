@@ -124,8 +124,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 首页CollinWang -->
         <activity
             android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 登录CollinWang -->
+        <activity
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>

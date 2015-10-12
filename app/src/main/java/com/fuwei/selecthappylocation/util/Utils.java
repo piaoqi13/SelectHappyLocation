@@ -58,12 +58,19 @@ public class Utils {
     }
 
     // 开始Act右动画Collin
-    public static void toRightAnimBai(Context mContext, Intent intent, boolean isFinished) {
+    public static void toRightAnim(Context mContext, Intent intent, boolean isFinished) {
         Activity mActivity = (Activity) mContext;
         mActivity.startActivity(intent);
         mActivity.overridePendingTransition(R.anim.left_to_current, R.anim.curent_to_right);
         if (isFinished) {
             mActivity.finish();
         }
+    }
+
+    // 结束Act右动画Collin
+    public static void toRightAnim(Context mContext) {
+        Activity mActivity = (Activity) mContext;
+        mActivity.finish();
+        mActivity.overridePendingTransition(R.anim.left_to_current, R.anim.curent_to_right);
     }
 }

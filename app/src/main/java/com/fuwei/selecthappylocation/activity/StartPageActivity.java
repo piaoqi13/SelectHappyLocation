@@ -1,7 +1,6 @@
 package com.fuwei.selecthappylocation.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +13,14 @@ import com.fuwei.selecthappylocation.util.Utils;
 /**
  * Created by collin on 2015-10-03.
  */
-public class StartPageActivity extends Activity {
+public class StartPageActivity extends BaseActivity {
     private Context mContext = null;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Intent intent = new Intent(mContext, MainActivity.class);
+            Intent intent = new Intent(mContext, LoginActivity.class);
             Utils.toLeftAnim(mContext, intent, true);
             super.handleMessage(msg);
         }
