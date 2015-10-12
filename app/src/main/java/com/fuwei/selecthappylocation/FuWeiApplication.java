@@ -45,7 +45,7 @@ public class FuWeiApplication extends Application {
         super.onCreate();
         mFuWeiApplication = this;
         mContext = getApplicationContext();
-        // ImageLoader初始化
+        // ImageLoader 初始化
         mImageLoader.init(getImageLoaderConfig());
         // 滚轮数据初始化
         initWheelData();
@@ -74,7 +74,7 @@ public class FuWeiApplication extends Application {
             mMonthArray[i-1] = (String.valueOf(i).length()==1 ? "0" + String.valueOf(i) : String.valueOf(i)) + "月";
         }
 
-        // 一个月30天
+        // 一个月 30 天
         mDay30Array = new String[30];
         for (int i=1; i<=mDay30Array.length; i++) {
             mDay30Array[i-1] = (String.valueOf(i).length()==1 ? "0" + String.valueOf(i) : String.valueOf(i)) + "日";

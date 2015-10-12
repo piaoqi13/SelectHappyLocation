@@ -134,6 +134,17 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
+
+        <!-- 我的选号 -->
+        <activity
+            android:name=".activity.MySelectionActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 随机选号 -->
+        <activity
+            android:name=".activity.RanSecActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

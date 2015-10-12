@@ -31,7 +31,7 @@ public class SpinnerWheelThreeDialog extends Dialog {
 	private View mView = null;
 	private Animation mAnimation = null;
 	
-	private int mIndex = 0;// 等于0是两个参数；等于1是三个参数；等于2是五个参数;等于3是一个参数
+	private int mIndex = 0;// 等于 0 是两个参数；等于 1 是三个参数；等于2是五个参数;等于3是一个参数
 	
 	private AbstractWheel mAwYear = null;
 	private AbstractWheel mAwMonth = null;

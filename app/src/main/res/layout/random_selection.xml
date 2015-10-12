@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/bitmap_background"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.fuwei.selecthappylocation.view.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:bar_title="@string/random_selection"
+        app:return_back="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/tu"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="55dp">
+
+        <antistatic.spinnerwheel.WheelVerticalView
+            android:id="@+id/passw_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <antistatic.spinnerwheel.WheelVerticalView
+            android:id="@+id/passw_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/passw_1"/>
+
+        <antistatic.spinnerwheel.WheelVerticalView
+            android:id="@+id/passw_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/passw_2"/>
+
+        <antistatic.spinnerwheel.WheelVerticalView
+            android:id="@+id/passw_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/passw_3"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/begin_selection"
+        style="@style/button_style"
+        android:text="@string/begin_selection"
+        android:background="@drawable/btn_click_selector" />
+
+</LinearLayout>

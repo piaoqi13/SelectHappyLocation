@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 滚轮选择框CollinWang -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/com.fuwei.selecthappylocation"
-    android:id="@+id/spinnerwheel_view"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+<LinearLayout android:id="@+id/spinnerwheel_view"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/com.fuwei.selecthappylocation"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal|bottom"
-        android:orientation="horizontal" 
-        android:paddingTop="10dp" >
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
         <com.fuwei.selecthappylocation.spinnerwheel.WheelVerticalView
             android:id="@+id/sw_year"
@@ -22,7 +22,7 @@
             android:layout_weight="1.5"
             android:gravity="right"
             app:selectionDivider="@drawable/divider_dark_gradient_horizontal"
-            app:selectionDividerHeight="1px" />
+            app:selectionDividerHeight="1px"/>
 
         <com.fuwei.selecthappylocation.spinnerwheel.WheelVerticalView
             android:id="@+id/sw_month"
@@ -31,7 +31,7 @@
             android:layout_weight="1"
             android:gravity="left"
             app:selectionDivider="@drawable/divider_dark_gradient_horizontal"
-            app:selectionDividerHeight="1px" />
+            app:selectionDividerHeight="1px"/>
 
         <com.fuwei.selecthappylocation.spinnerwheel.WheelVerticalView
             android:id="@+id/sw_day"
@@ -40,7 +40,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:selectionDivider="@drawable/divider_dark_gradient_horizontal"
-            app:selectionDividerHeight="1px" />
+            app:selectionDividerHeight="1px"/>
 
         <com.fuwei.selecthappylocation.spinnerwheel.WheelVerticalView
             android:id="@+id/sw_hour"
@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:selectionDivider="@drawable/divider_dark_gradient_horizontal"
-            app:selectionDividerHeight="1px" />
+            app:selectionDividerHeight="1px"/>
 
         <com.fuwei.selecthappylocation.spinnerwheel.WheelVerticalView
             android:id="@+id/sw_minute"
@@ -58,16 +58,16 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             app:selectionDivider="@drawable/divider_dark_gradient_horizontal"
-            app:selectionDividerHeight="1px" />
+            app:selectionDividerHeight="1px"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp" 
-        android:gravity="center" >
+        android:paddingTop="5dp">
 
         <Button
             android:id="@+id/btn_confirm"
@@ -80,7 +80,7 @@
             android:paddingTop="5dp"
             android:text="确定"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"/>
     </LinearLayout>
 
 </LinearLayout>

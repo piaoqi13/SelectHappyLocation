@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleView">
+        <attr name="bar_title" format="reference|string"></attr>
+        <attr name="return_back" format="boolean"></attr>
+    </declare-styleable>
+
+</resources>
