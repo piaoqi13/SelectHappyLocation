@@ -15,4 +15,8 @@
     <color name="title_color">#884E2D1C</color>
     <color name="text_color">#666666</color>
     <color name="cut_off_line">#cdcdcd</color>
+
+    <color name="bianhao_color">#FF8124</color>
+    <color name="count_down_text_color">#d50c0c</color>
+
 </resources>

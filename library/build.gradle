@@ -1,0 +1,15 @@
+apply plugin: 'android-library'
+
+dependencies {
+    provided files('libs/nineoldandroids-2.2.0.jar')
+    compile files('src/main/libs/nineoldandroids-2.2.0.jar')
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        minSdkVersion 3
+    }
+}

@@ -6,9 +6,12 @@
     <string name="bar_title">标题</string>
     <string name="my_selection">我的选号</string>
     <string name="end_selection">结束选号</string>
+    <string name="random_selection">随机选号</string>
+    <string name="begin_selection">开始选号</string>
 
-    <string name="fuweibianhao">福位编号：%1$s</string>
     <string name="fuweiquyu">福位区域：%1$s</string>
+    <string name="valid_time_remain">%1$d 小时 %2$s 分 %3$s 秒</string>
+    <string name="end_count_down">倒计时结束</string>
 
     <string name="company_right_text">飘奇工作室 All @Right 2015</string>
     <string name="identity_card">身份证</string>

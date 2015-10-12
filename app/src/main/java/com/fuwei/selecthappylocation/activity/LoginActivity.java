@@ -96,6 +96,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void initView() {
         mEdtIdentityNumber = (EditText) findViewById(R.id.edt_identity_card);
         mBtnLogin = (Button) findViewById(R.id.btn_login);
+
+        // Added By Linky
+        findViewById(R.id.my_selection).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent in = new Intent(mActivity, MySelectionActivity.class);
+                startActivity(in);
+            }
+        });
+
+        // Added By Linky
+        findViewById(R.id.random_selection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(mActivity, RanSecActivity.class);
+                startActivity(in);
+            }
+        });
     }
 
     @Override

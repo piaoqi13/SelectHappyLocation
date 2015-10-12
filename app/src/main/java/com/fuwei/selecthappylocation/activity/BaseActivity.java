@@ -15,7 +15,7 @@ import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Settings.PublicProperty;
 
 /**
- * Created by collin on 2015-10-11.
+ *
  */
 public class BaseActivity extends Activity {
     protected static final String STATE_PAUSE_ON_SCROLL = "STATE_PAUSE_ON_SCROLL";
