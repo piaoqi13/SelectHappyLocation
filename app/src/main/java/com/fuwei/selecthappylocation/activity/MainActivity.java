@@ -1,6 +1,5 @@
 package com.fuwei.selecthappylocation.activity;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import com.umeng.update.UmengUpdateAgent;
 /**
  * Created by collin on 2015-10-02.
  */
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends BaseActivity implements OnClickListener {
     private final String mPageName = "MainActivity";
     private Resources mResource = null;
     private String mPackageName = null;
@@ -29,8 +28,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        super.onCreate(savedInstanceState);
         mResource = this.getResources();
         mPackageName = this.getPackageName();
         // 装载界面集合
@@ -42,17 +41,32 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageStart(mPageName);
-        MobclickAgent.onPause(this);
+    public void initView() {
+        super.initView();
+    }
+
+    @Override
+    public void initData() {
+        setTitle(R.string.title_index_text);
+    }
+
+    @Override
+    public void initListener() {
+        super.initListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPageStart(mPageName);
         MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mPageName);
+        MobclickAgent.onPause(this);
     }
 
     @Override
