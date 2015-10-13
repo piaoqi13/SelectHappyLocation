@@ -66,7 +66,7 @@ public class FuWeiApplication extends Application {
 
     private void initWheelData() {
         mShiChenArray = new String[]{"子时(23:00~00:59)",
-                "丑时(01:00~02;59)",
+                "丑时(01:00~02:59)",
                 "寅时(03:00~04:59)",
                 "卯时(05:00~06:59)",
                 "辰时(07:00~08:59)",
