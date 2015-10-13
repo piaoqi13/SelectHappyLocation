@@ -1,149 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fuwei.selecthappylocation" >
+<manifest package="com.fuwei.selecthappylocation"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
-    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission
         android:name="oem.permission.SENDMAIL"
-        android:protectionLevel="normal" />
+        android:protectionLevel="normal"/>
 
     <application
         android:name="com.fuwei.selecthappylocation.FuWeiApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar">
         <!-- 百度推送CollinWang -->
         <meta-data
             android:name="api_key"
-            android:value="Puz7grrvayEthElqWZhNpRpC" />
+            android:value="Puz7grrvayEthElqWZhNpRpC"/>
         <!-- 百度定位CollinWang -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Puz7grrvayEthElqWZhNpRpC" />
+            android:value="Puz7grrvayEthElqWZhNpRpC"/>
         <!-- 友盟统计引用CollinWang -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="560f563767e58e8bd40031c7" >
+            android:value="560f563767e58e8bd40031c7">
         </meta-data>
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Umeng" >
+            android:value="Umeng">
         </meta-data>
         <!-- 友盟自动更新CollinWang -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
+            android:process=":DownloadingService">
         </service>
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2" >
+                <action android:name="com.baidu.location.service_v2.2">
                 </action>
             </intent-filter>
         </service>
         <!-- 百度推送PushStart -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.fuwei.selecthappylocation.receiver.BaiduPushReceiver" >
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
+        <receiver android:name="com.fuwei.selecthappylocation.receiver.BaiduPushReceiver">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
+            </intent-filter>
+        </receiver>
+
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
             android:permission="oem.permission.SENDMAIL"
-            android:process=":bdservice_v1" >
+            android:process=":bdservice_v1">
             <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
             </intent-filter>
         </service>
         <service
             android:name="com.baidu.android.pushservice.CommandService"
-            android:exported="true" />
+            android:exported="true"/>
         <!-- Push结束 -->
         <activity
             android:name=".activity.StartPageActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <!-- 首页CollinWang -->
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <!-- 登录CollinWang -->
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
-
+        <!-- 福位美景CollinWang -->
+        <activity
+            android:name=".activity.LocationSceneryActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- 我的选号 -->
         <activity
             android:name=".activity.MySelectionActivity"
-            android:screenOrientation="portrait" />
-
+            android:screenOrientation="portrait"/>
         <!-- 随机选号 -->
         <activity
             android:name=".activity.RanSecActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
     </application>
 

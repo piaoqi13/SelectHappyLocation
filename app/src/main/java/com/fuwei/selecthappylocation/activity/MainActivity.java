@@ -164,6 +164,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.ll_location_scenery:
+                intent = new Intent(mContext, LocationSceneryActivity.class);
+                Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_advanced_customization:
                 break;

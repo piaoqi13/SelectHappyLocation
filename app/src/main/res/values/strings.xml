@@ -19,4 +19,5 @@
     <string name="btn_login_text">登录</string>
     <string name="btn_confirm_login_text">确认登录</string>
     <string name="title_index_text">首页</string>
+    <string name="title_location_scenery_text">福位美景</string>
 </resources>
