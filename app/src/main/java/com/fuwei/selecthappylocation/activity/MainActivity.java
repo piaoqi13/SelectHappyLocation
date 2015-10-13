@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.ll_mine_location:
                 intent = new Intent(mContext, MySelectionActivity.class);
-                Utils.toLeftAnim(mContext, intent, true);
+                Utils.toLeftAnim(mContext, intent, false);
                 break;
             default:
                 break;

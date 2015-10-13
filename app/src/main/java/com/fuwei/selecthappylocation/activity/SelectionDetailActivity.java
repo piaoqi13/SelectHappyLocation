@@ -1,6 +1,7 @@
 package com.fuwei.selecthappylocation.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -72,8 +73,11 @@ public class SelectionDetailActivity extends BaseActivity implements View.OnClic
                 HandleLeftNavBtn();
                 break;
             case R.id.tv_confirm_selection:
+                Intent intent = new Intent(mContext, MySelectionActivity.class);
+                Utils.toLeftAnim(mContext, intent, true);
                 break;
             case R.id.tv_cancel_selection:
+                HandleLeftNavBtn();
                 break;
             default:
                 break;
