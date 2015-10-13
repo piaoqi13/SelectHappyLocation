@@ -7,8 +7,8 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.Button;
 
 import com.fuwei.selecthappylocation.R;
-
 import antistatic.spinnerwheel.AbstractWheel;
+
 import antistatic.spinnerwheel.OnWheelChangedListener;
 import antistatic.spinnerwheel.OnWheelScrollListener;
 import antistatic.spinnerwheel.adapters.NumericWheelAdapter;
