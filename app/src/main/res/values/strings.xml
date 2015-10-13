@@ -29,4 +29,6 @@
     <string name="birthday_hint_text">请选择您的生日</string>
     <string name="birthday_detail_hint_text">请选择您的时辰</string>
     <string name="start_select_text">开始选号</string>
+
+    <string name="title_selection_detail_text">福位详情</string>
 </resources>

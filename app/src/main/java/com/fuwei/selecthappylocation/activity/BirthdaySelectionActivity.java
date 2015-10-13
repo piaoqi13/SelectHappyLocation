@@ -46,8 +46,8 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
             switch (msg.what) {
                 case GET_BIRTHDAY_SELECT_SUCCEED:
                     mLoading.dismiss();
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    Utils.toLeftAnim(mContext, intent, true);
+                    Intent intent = new Intent(mContext, SelectionDetailActivity.class);
+                    Utils.toLeftAnim(mContext, intent, false);
                     break;
                 case GET_BIRTHDAY_SELECT_FAILED:
                     mLoading.dismiss();

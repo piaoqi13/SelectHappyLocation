@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.fuwei.selecthappylocation"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.fuwei.selecthappylocation"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
@@ -143,6 +144,11 @@
         <!-- 生辰八字选号CollinWang -->
         <activity
             android:name=".activity.BirthdaySelectionActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- 福位详情CollinWang -->
+        <activity
+            android:name=".activity.SelectionDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <!-- 我的选号 -->
