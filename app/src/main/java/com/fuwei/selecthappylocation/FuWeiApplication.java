@@ -36,6 +36,7 @@ public class FuWeiApplication extends Application {
     public String[] mDay28Array = null;// 平年2月
     public String[] mHourArray = null;
     public String[] mMinuteArray = null;
+    public String[] mShiChenArray = null;
 
     public String mProvince = null;// 当前省份
     public String mCity = null;// 当前城市
@@ -64,6 +65,19 @@ public class FuWeiApplication extends Application {
     }
 
     private void initWheelData() {
+        mShiChenArray = new String[]{"子时(23:00~00:59)",
+                "丑时(01:00~02;59)",
+                "寅时(03:00~04:59)",
+                "卯时(05:00~06:59)",
+                "辰时(07:00~08:59)",
+                "己时(09:00~10:59)",
+                "午时(11:00~12:59)",
+                "未时(13:00~14:59)",
+                "申时(15:00~16:59)",
+                "酉时(17:00~18:59)",
+                "戊时(19:00~20:59)",
+                "亥时(21:00~22:59)"};
+
         mYearArray = new String[100];
         for (int i=1; i<=mYearArray.length; i++) {
             mYearArray[i-1] = (String.valueOf(i + 1915)) + "年";

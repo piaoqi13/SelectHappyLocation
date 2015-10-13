@@ -64,7 +64,7 @@ public class LocationSceneryActivity extends BaseActivity implements View.OnClic
     @Override
     public void initData() {
         setTitle(R.string.title_location_scenery_text);
-        mWvLocationScenery.loadUrl("http://www.baidu.com");
+        mWvLocationScenery.loadUrl("http://www.whccg.com/");
     }
 
     @Override

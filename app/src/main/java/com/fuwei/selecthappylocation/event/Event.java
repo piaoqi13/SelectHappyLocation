@@ -5,4 +5,5 @@ package com.fuwei.selecthappylocation.event;
  */
 public enum Event {
     EVENT_LOGIN_SUCCESS, EVENT_LOGIN_FAIL,
+    EVENT_GET_BIRTHDAY_SELECT_SUCCESS, EVENT_GET_BIRTHDAY_SELECT_FAIL,
 }

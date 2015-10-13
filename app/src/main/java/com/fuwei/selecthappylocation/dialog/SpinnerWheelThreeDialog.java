@@ -17,9 +17,10 @@ import android.widget.Button;
 import com.fuwei.selecthappylocation.FuWeiApplication;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.util.Utils;
-import com.touna.evaluate.spinnerwheel.AbstractWheel;
-import com.touna.evaluate.spinnerwheel.OnWheelScrollListener;
-import com.touna.evaluate.spinnerwheel.adapters.AbstractWheelTextAdapter;
+
+import antistatic.spinnerwheel.AbstractWheel;
+import antistatic.spinnerwheel.OnWheelScrollListener;
+import antistatic.spinnerwheel.adapters.AbstractWheelTextAdapter;
 
 /**
  * Created by collin on 2015-10-02.

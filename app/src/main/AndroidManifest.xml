@@ -140,6 +140,11 @@
             android:name=".activity.LocationSceneryActivity"
             android:screenOrientation="portrait">
         </activity>
+        <!-- 生辰八字选号CollinWang -->
+        <activity
+            android:name=".activity.BirthdaySelectionActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- 我的选号 -->
         <activity
             android:name=".activity.MySelectionActivity"

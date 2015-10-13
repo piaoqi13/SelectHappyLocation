@@ -116,7 +116,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         mViewPager.setAdapter(new ViewPagerAdapter(mViews));
         mViewPager.setCurrentItem(mCurrentPage);
         mAdvertiseTimer = new Timer();
-        mAdvertiseTimer.schedule(new AdvertiseTimer(), 5000, 5000);
     }
 
     @Override
@@ -150,6 +149,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         super.onResume();
         MobclickAgent.onPageStart(mPageName);
         MobclickAgent.onResume(this);
+        mAdvertiseTimer = new Timer();
+        mAdvertiseTimer.schedule(new AdvertiseTimer(), 5000, 5000);
     }
 
     @Override
@@ -157,6 +158,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         super.onPause();
         MobclickAgent.onPageEnd(mPageName);
         MobclickAgent.onPause(this);
+        mAdvertiseTimer.cancel();
+        mAdvertiseTimer = null;
     }
 
     @Override
@@ -170,6 +173,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
             case R.id.ll_advanced_customization:
                 break;
             case R.id.ll_birthday_select:
+                intent = new Intent(mContext, BirthdaySelectionActivity.class);
+                Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_random_select:
                 intent = new Intent(mContext, RanSecActivity.class);
