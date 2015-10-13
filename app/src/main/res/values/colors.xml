@@ -25,4 +25,5 @@
     <color name="btn_cancel_normal_color">#ffffff</color>
     <color name="btn_cancel_pressed_color">#d0d0d0</color>
 
+    <color name="tv_clicked_color">#f2f2f2</color>
 </resources>
