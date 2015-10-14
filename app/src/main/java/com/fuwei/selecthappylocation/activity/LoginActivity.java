@@ -15,6 +15,7 @@ import com.fuwei.selecthappylocation.event.Event;
 import com.fuwei.selecthappylocation.http.ReqListener;
 import com.fuwei.selecthappylocation.model.LoginInfo;
 import com.fuwei.selecthappylocation.model.ResultLoginInfo;
+import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 
 /**
@@ -35,6 +36,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case LOGIN_SUCCEED:
+                    Settings.setBoolean("isHaveSelection", true, false);
                     Intent intent = new Intent(mContext, MainActivity.class);
                     Utils.toLeftAnim(mContext, intent, true);
                     // 处理动态加载
