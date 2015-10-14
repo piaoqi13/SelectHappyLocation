@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -106,14 +107,21 @@ public class MySelectionActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            mBtnEndChoose.performClick();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_left:
-                HandleLeftNavBtn();
-                break;
             case R.id.end_choose:
                 toShow("选号结束");
-                mHandler.sendEmptyMessageDelayed(EXIT,1114);
+                mHandler.sendEmptyMessageDelayed(EXIT,114);
                 break;
             default:
                 break;

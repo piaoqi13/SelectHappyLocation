@@ -17,6 +17,7 @@ import antistatic.spinnerwheel.adapters.NumericWheelAdapter;
 
 /**
  * Created by linky on 15-10-12.
+ * Modify by collin on 2015-10-14
  */
 public class RanSecActivity extends BaseActivity implements View.OnClickListener {
     private final static String TAG = "RanSecActivity";
@@ -69,10 +70,12 @@ public class RanSecActivity extends BaseActivity implements View.OnClickListener
     private void initWheel(int id) {
         AbstractWheel wheel = getWheel(id);
         wheel.setViewAdapter(new NumericWheelAdapter(this, 0, 9));
-        wheel.setCurrentItem((int) (Math.random() * 10));
+        //wheel.setCurrentItem((int) (Math.random() * 10));
+        wheel.setCurrentItem(8);
         wheel.addChangingListener(changedListener);
         wheel.addScrollingListener(scrolledListener);
         wheel.setCyclic(true);
+        wheel.setEnabled(false);
         wheel.setInterpolator(new AnticipateOvershootInterpolator());
     }
 
