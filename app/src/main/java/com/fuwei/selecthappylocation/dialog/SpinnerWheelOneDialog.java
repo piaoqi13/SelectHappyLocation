@@ -15,8 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.fuwei.selecthappylocation.R;
-import com.touna.evaluate.spinnerwheel.AbstractWheel;
-import com.touna.evaluate.spinnerwheel.adapters.AbstractWheelTextAdapter;
+
+import antistatic.spinnerwheel.AbstractWheel;
+import antistatic.spinnerwheel.adapters.AbstractWheelTextAdapter;
 
 /**
  * Created by collin on 2015-10-02.

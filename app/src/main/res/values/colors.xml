@@ -18,5 +18,12 @@
 
     <color name="bianhao_color">#FF8124</color>
     <color name="count_down_text_color">#d50c0c</color>
+    <color name="selection_detail_price_text_color">#ff8800</color>
 
+    <color name="btn_confirm_pressed_color">#d77a35</color>
+    <color name="btn_confirm_normal_color">#f18c42</color>
+    <color name="btn_cancel_normal_color">#ffffff</color>
+    <color name="btn_cancel_pressed_color">#d0d0d0</color>
+
+    <color name="tv_clicked_color">#f2f2f2</color>
 </resources>

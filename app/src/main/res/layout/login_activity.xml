@@ -84,16 +84,5 @@
             android:textSize="18sp"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/my_selection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我的选号"/>
-
-    <Button
-        android:id="@+id/random_selection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="随机选号"/>
 
 </LinearLayout>

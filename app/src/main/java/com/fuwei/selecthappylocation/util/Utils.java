@@ -73,4 +73,12 @@ public class Utils {
         mActivity.finish();
         mActivity.overridePendingTransition(R.anim.left_to_current, R.anim.curent_to_right);
     }
+
+    /**
+     * 根据手机的分辨率从DP的单位转成为PX(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
 }
