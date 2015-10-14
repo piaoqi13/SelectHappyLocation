@@ -1,57 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:background="@drawable/bitmap_background"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:background="@drawable/bitmap_background"
+              android:orientation="vertical">
 
-    <com.fuwei.selecthappylocation.view.TitleView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:bar_title="@string/random_selection"
-        app:return_back="true" />
+    <include layout="@layout/navigation_bar"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/tu"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="55dp">
-
-        <antistatic.spinnerwheel.WheelVerticalView
-            android:id="@+id/passw_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <antistatic.spinnerwheel.WheelVerticalView
-            android:id="@+id/passw_2"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/passw_1"/>
+            android:background="@mipmap/tu"/>
 
-        <antistatic.spinnerwheel.WheelVerticalView
-            android:id="@+id/passw_3"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/passw_2"/>
+            android:layout_marginTop="200dp"
+            android:orientation="vertical">
 
-        <antistatic.spinnerwheel.WheelVerticalView
-            android:id="@+id/passw_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/passw_3"/>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="55dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingLeft="45dp"
+                android:paddingRight="45dp">
 
-    </RelativeLayout>
+                <antistatic.spinnerwheel.WheelVerticalView
+                    android:id="@+id/passw_1"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_number_background"/>
 
-    <Button
-        android:id="@+id/begin_selection"
-        style="@style/button_style"
-        android:text="@string/begin_selection"
-        android:background="@drawable/btn_click_selector" />
+                <antistatic.spinnerwheel.WheelVerticalView
+                    android:id="@+id/passw_2"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="1dp"
+                    android:layout_toRightOf="@id/passw_1"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_number_background"/>
+
+                <antistatic.spinnerwheel.WheelVerticalView
+                    android:id="@+id/passw_3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="1dp"
+                    android:layout_toRightOf="@id/passw_2"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_number_background"/>
+
+                <antistatic.spinnerwheel.WheelVerticalView
+                    android:id="@+id/passw_4"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginRight="1dp"
+                    android:layout_toRightOf="@id/passw_3"
+                    android:layout_weight="1"
+                    android:background="@drawable/random_number_background"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/begin_selection"
+                style="@style/button_style"
+                android:background="@drawable/btn_click_selector"
+                android:text="@string/begin_selection"/>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
 
 </LinearLayout>

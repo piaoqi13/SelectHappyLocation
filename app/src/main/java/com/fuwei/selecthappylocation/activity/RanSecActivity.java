@@ -7,6 +7,8 @@ import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.Button;
 
 import com.fuwei.selecthappylocation.R;
+import com.fuwei.selecthappylocation.util.Utils;
+
 import antistatic.spinnerwheel.AbstractWheel;
 
 import antistatic.spinnerwheel.OnWheelChangedListener;
@@ -16,13 +18,9 @@ import antistatic.spinnerwheel.adapters.NumericWheelAdapter;
 /**
  * Created by linky on 15-10-12.
  */
-public class RanSecActivity extends BaseActivity {
-
+public class RanSecActivity extends BaseActivity implements View.OnClickListener {
     private final static String TAG = "RanSecActivity";
-
-    private Button mBegin;
-
-    // Wheel scrolled flag
+    private Button mBegin = null;
     private boolean wheelScrolled = false;
 
     @Override
@@ -49,28 +47,25 @@ public class RanSecActivity extends BaseActivity {
         });
     }
 
-    /**
-     * Mixes spinnerwheel
-     * @param id the spinnerwheel id
-     */
+    @Override
+    public void initData() {
+        setTitle(R.string.random_selection);
+    }
+
+    @Override
+    public void initListener() {
+        getLeftBtn().setOnClickListener(this);
+    }
+
     private void mixWheel(int id) {
         AbstractWheel wheel = getWheel(id);
         wheel.scroll(-25 + (int) (Math.random() * 50), 2000);
     }
 
-    /**
-     * Returns spinnerwheel by Id
-     * @param id the spinnerwheel Id
-     * @return the spinnerwheel with passed Id
-     */
     private AbstractWheel getWheel(int id) {
         return (AbstractWheel) findViewById(id);
     }
 
-    /**
-     * Initializes spinnerwheel
-     * @param id the spinnerwheel wheel Id
-     */
     private void initWheel(int id) {
         AbstractWheel wheel = getWheel(id);
         wheel.setViewAdapter(new NumericWheelAdapter(this, 0, 9));
@@ -81,7 +76,6 @@ public class RanSecActivity extends BaseActivity {
         wheel.setInterpolator(new AnticipateOvershootInterpolator());
     }
 
-    // Wheel changed listener
     private OnWheelChangedListener changedListener = new OnWheelChangedListener() {
         public void onChanged(AbstractWheel wheel, int oldValue, int newValue) {
             if (!wheelScrolled) {
@@ -90,8 +84,7 @@ public class RanSecActivity extends BaseActivity {
         }
     };
 
-    // Wheel scrolled listener
-    OnWheelScrollListener scrolledListener = new OnWheelScrollListener() {
+    private OnWheelScrollListener scrolledListener = new OnWheelScrollListener() {
         public void onScrollingStarted(AbstractWheel wheel) {
             wheelScrolled = true;
         }
@@ -101,7 +94,18 @@ public class RanSecActivity extends BaseActivity {
     };
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void HandleLeftNavBtn() {
+        Utils.toRightAnim(mContext);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_left:
+                HandleLeftNavBtn();
+                break;
+            default:
+                break;
+        }
     }
 }
