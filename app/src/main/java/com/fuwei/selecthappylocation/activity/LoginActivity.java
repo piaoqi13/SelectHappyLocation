@@ -3,8 +3,8 @@ package com.fuwei.selecthappylocation.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +15,7 @@ import com.fuwei.selecthappylocation.event.Event;
 import com.fuwei.selecthappylocation.http.ReqListener;
 import com.fuwei.selecthappylocation.model.LoginInfo;
 import com.fuwei.selecthappylocation.model.ResultLoginInfo;
+import com.fuwei.selecthappylocation.util.BaiduMapUtil;
 import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 
@@ -92,6 +93,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.login_activity);
         super.onCreate(savedInstanceState);
+        // 百度定位走起
+        BaiduMapUtil.getInstance().startLocation(mContext);
     }
 
     @Override
@@ -167,5 +170,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler = null;
+        mRun = null;
+        // 百度定位关闭
+        BaiduMapUtil.getInstance().stopLocation();
     }
 }
