@@ -62,6 +62,7 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.birthday_selection_activity);
         super.onCreate(savedInstanceState);
+        FuWeiApplication.getInstance().addActivity(this);
     }
 
     @Override
