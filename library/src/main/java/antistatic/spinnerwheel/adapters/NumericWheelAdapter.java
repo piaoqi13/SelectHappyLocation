@@ -71,7 +71,7 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
      */
     public NumericWheelAdapter(Context context, int minValue, int maxValue, String format) {
         super(context);
-        
+        super.setTextSize(40);// CollinWang20151014
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.format = format;
