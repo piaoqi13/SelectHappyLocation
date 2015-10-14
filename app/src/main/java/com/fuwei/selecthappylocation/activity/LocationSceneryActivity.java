@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.util.Utils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 
 /**
  * created by collin on 2015-10-13.
@@ -64,7 +65,8 @@ public class LocationSceneryActivity extends BaseActivity implements View.OnClic
     @Override
     public void initData() {
         setTitle(R.string.title_location_scenery_text);
-        mWvLocationScenery.loadUrl("http://www.whccg.com/");
+        String url = OnlineConfigAgent.getInstance().getConfigParams(mContext, "LocationSceneryUrl");
+        mWvLocationScenery.loadUrl(url);
     }
 
     @Override

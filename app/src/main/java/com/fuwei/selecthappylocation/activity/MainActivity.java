@@ -25,6 +25,7 @@ import com.fuwei.selecthappylocation.adapter.ViewPagerAdapter;
 import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
@@ -76,6 +77,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         UmengUpdateAgent.update(this);
         // 百度推送走起
         startBaiduPush();
+        // 友盟在线参数
+        OnlineConfigAgent.getInstance().updateOnlineConfig(mContext);
     }
 
     @Override
