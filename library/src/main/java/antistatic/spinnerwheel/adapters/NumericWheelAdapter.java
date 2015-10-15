@@ -25,6 +25,7 @@
 package antistatic.spinnerwheel.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 
 /**
  * Numeric Wheel adapter.
@@ -71,7 +72,8 @@ public class NumericWheelAdapter extends AbstractWheelTextAdapter {
      */
     public NumericWheelAdapter(Context context, int minValue, int maxValue, String format) {
         super(context);
-        
+        super.setTextSize(40);// CollinWang20151014
+        super.setTextColor(Color.parseColor("#666666"));
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.format = format;

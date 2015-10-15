@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fuwei.selecthappylocation.FuWeiApplication;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.event.Event;
 import com.fuwei.selecthappylocation.http.ReqListener;
@@ -41,6 +42,7 @@ public class SelectionDetailActivity extends BaseActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.selection_detail_activity);
         super.onCreate(savedInstanceState);
+        FuWeiApplication.getInstance().addActivity(this);
     }
 
     @Override

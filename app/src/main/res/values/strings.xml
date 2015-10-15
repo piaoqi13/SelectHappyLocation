@@ -31,4 +31,5 @@
     <string name="start_select_text">开始选号</string>
 
     <string name="title_selection_detail_text">福位详情</string>
+    <string name="title_my_selection_text">我的选号</string>
 </resources>

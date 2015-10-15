@@ -22,8 +22,10 @@ import com.baidu.android.pushservice.PushManager;
 import com.fuwei.selecthappylocation.FuWeiApplication;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.adapter.ViewPagerAdapter;
+import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
@@ -75,6 +77,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         UmengUpdateAgent.update(this);
         // 百度推送走起
         startBaiduPush();
+        // 友盟在线参数
+        OnlineConfigAgent.getInstance().updateOnlineConfig(mContext);
     }
 
     @Override
@@ -181,8 +185,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_mine_location:
-                intent = new Intent(mContext, MySelectionActivity.class);
-                Utils.toLeftAnim(mContext, intent, false);
+                if (!Settings.getBoolean("isHaveSelection", false, false)) {
+                    intent = new Intent(mContext, MySelectionActivity.class);
+                    Utils.toLeftAnim(mContext, intent, false);
+                } else {
+                    toShow("暂无选号");
+                }
                 break;
             default:
                 break;
