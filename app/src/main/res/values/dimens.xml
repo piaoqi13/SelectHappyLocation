@@ -3,4 +3,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="title_bar_height">45dip</dimen>
+
 </resources>

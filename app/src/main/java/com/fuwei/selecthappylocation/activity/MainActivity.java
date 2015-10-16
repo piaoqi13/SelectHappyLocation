@@ -34,7 +34,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by collin on 2015-10-02.
+ *
  */
 public class MainActivity extends BaseActivity implements OnClickListener {
     private final String mPageName = "MainActivity";
@@ -175,6 +175,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_advanced_customization:
+                intent = new Intent(mContext, AdvanceBookActivity.class);
+                Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_birthday_select:
                 intent = new Intent(mContext, BirthdaySelectionActivity.class);

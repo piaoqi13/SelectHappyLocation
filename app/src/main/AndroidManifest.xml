@@ -160,6 +160,10 @@
             android:name=".activity.RanSecActivity"
             android:screenOrientation="portrait"/>
 
+        <!-- 高端定制 -->
+        <activity android:name=".activity.AdvanceBookActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
