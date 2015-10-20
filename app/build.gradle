@@ -33,4 +33,5 @@ dependencies {
     compile files('libs/pushservice-4.5.3.48.jar')
     compile project(':library')
     compile files('libs/umeng-onlineconfig_v1.0.0.jar')
+    compile 'com.github.Almeros:android-gesture-detectors:1ffb8444ee'
 }
