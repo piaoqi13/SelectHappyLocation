@@ -33,7 +33,7 @@ public class SeatTableView extends View {
     private int rowSize;
     private int columnSize;
 
-    private Paint linePaint;    // 中央线的绘制
+//    private Paint linePaint;    // 中央线的绘制
 
     int width;
     int height;
@@ -59,7 +59,7 @@ public class SeatTableView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //只绘制可见的座位图
+        // 只绘制可见的座位图
         if(defWidth < 10) {
             throw new IllegalArgumentException("the width must > 10, the value is " + defWidth);
         }
@@ -87,10 +87,10 @@ public class SeatTableView extends View {
         int n = Math.min(rowSize - 1, m + (height / seatWidth) + 2);//两边多显示1列,避免临界的突然消失的现象
         for (int i = m; i <= n; i++) {
             //绘制中线,座位间隔由图片来做,简化处理
-            if (linePaint != null) {
-                canvas.drawLine((columnSize * seatWidth) / 2 + mPosX, i * (seatWidth) + mPosY,
-                        (columnSize * seatWidth) / 2 + mPosX, i * (seatWidth) + seatWidth + mPosY, linePaint);
-            }
+//            if (linePaint != null) {
+//                canvas.drawLine((columnSize * seatWidth) / 2 + mPosX, i * (seatWidth) + mPosY,
+//                        (columnSize * seatWidth) / 2 + mPosX, i * (seatWidth) + seatWidth + mPosY, linePaint);
+//            }
             int k = (int)(mPosX + seatWidth + 0.5f);
             k = k > 0 ? 0 : -k / seatWidth;//移动距离不可能出现移到-rowSize
             int l = Math.min(columnSize - 1, k + (width / seatWidth) + 2);//两边多显示1列,避免临界的突然消失的现象
@@ -142,9 +142,9 @@ public class SeatTableView extends View {
         this.columnSize = columnSize;
     }
 
-    public void setLinePaint(Paint linePaint) {
-        this.linePaint = linePaint;
-    }
+//    public void setLinePaint(Paint linePaint) {
+//        this.linePaint = linePaint;
+//    }
 
     public void setDefWidth(int defWidth) {
         this.defWidth = defWidth;
