@@ -27,6 +27,17 @@
         android:name="oem.permission.SENDMAIL"
         android:protectionLevel="normal"/>
 
+    <!-- Added By Linky-->
+    <uses-configuration android:reqTouchScreen="finger" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.touchscreen.multitouch"
+        android:required="true" />
+    <!-- Added By Linky-->
+
     <application
         android:name="com.fuwei.selecthappylocation.FuWeiApplication"
         android:allowBackup="true"
@@ -158,6 +169,10 @@
         <!-- 随机选号 -->
         <activity
             android:name=".activity.RanSecActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- 高端定制 -->
+        <activity android:name=".activity.AdvanceBookActivity"
             android:screenOrientation="portrait"/>
 
     </application>

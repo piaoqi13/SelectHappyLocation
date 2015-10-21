@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.fuwei.selecthappylocation.view.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:bar_title="@string/addvance_book"
+        app:return_back="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/common_text_style"
+            android:layout_marginLeft="10dp"
+            android:text="您的选号是："
+            android:textColor="@color/company_right"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/selected_number"
+            style="@style/common_text_style"
+            android:layout_marginLeft="10dp"
+            android:text="00001"
+            android:textColor="@color/text_color"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <com.fuwei.selecthappylocation.view.MyHorizontalScrollView
+        android:id="@+id/room_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/room_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"/>
+
+    </com.fuwei.selecthappylocation.view.MyHorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <FrameLayout
+            android:id="@+id/seat_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10dp" />
+
+        <Button
+            android:id="@+id/begin_selection"
+            style="@style/button_style"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_click_selector"
+            android:text="@string/begin_selection"/>
+
+        <LinearLayout
+            android:id="@+id/desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/begin_selection"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/yishoupng"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="已售"
+                android:textColor="@color/company_right"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@mipmap/weishou"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="未售"
+                android:textColor="@color/company_right"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@mipmap/suoding"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="已被锁定"
+                android:textColor="@color/company_right"
+                android:textSize="10sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
