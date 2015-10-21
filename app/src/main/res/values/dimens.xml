@@ -3,4 +3,11 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="title_bar_height">45dip</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+    <dimen name="padding_1dp">1dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_15dp">15dp</dimen>
+
+    <dimen name="text_size_18sp">18sp</dimen>
 </resources>

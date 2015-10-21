@@ -139,7 +139,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                         mHandler.postDelayed(mRun, 180);
                     }
                     // Demo假数据
-                    mHandler.sendEmptyMessageDelayed(LOGIN_SUCCEED,4444);
+//                    mHandler.sendEmptyMessageDelayed(LOGIN_SUCCEED,4444);
+                    mHandler.sendEmptyMessage(LOGIN_SUCCEED);
                 }
                 break;
             default:

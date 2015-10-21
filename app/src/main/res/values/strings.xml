@@ -8,7 +8,9 @@
     <string name="end_selection">结束选号</string>
     <string name="random_selection">随机选号</string>
     <string name="begin_selection">开始选号</string>
+    <string name="sure">确定</string>
 
+    <string name="addvance_book">高端定制</string>
     <string name="fuweiquyu">福位区域：%1$s</string>
     <string name="valid_time_remain">%1$d 小时 %2$s 分 %3$s 秒</string>
     <string name="end_count_down">倒计时结束</string>
