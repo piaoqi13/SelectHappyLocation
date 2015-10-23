@@ -1,21 +1,15 @@
 package com.fuwei.selecthappylocation.view;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.PointF;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
@@ -36,10 +30,13 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
 
     private Context mContext;
     private Matrix mMatrix = new Matrix();
+
     private float mPreScaleFactor = 1.0f;
     private float mScaleFactor = 1.0f;
+
     private float mPreFocusX = 0.f;
-    private float mFocusX = 0.f;
+    private float mFocusX = 0.f;        // SeatTableView 与 屏幕左边界的相对位置
+
     private float mPreFocusY = 0.f;
     private float mFocusY = 0.f;
 
@@ -47,7 +44,6 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
     private MoveGestureDetector mMoveDetector;
 
     SeatTableView seatTableView;
-    LinearLayout rowView;
     private SeatMo[][] seatTable;
 
     public List<SeatMo> selectedSeats;  // 保存选中座位
@@ -55,14 +51,16 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
     private int screenWidth;
     private int minLeft;
     private int minTop;
-    private int defWidth;
 
     int[] oldClick = new int[2];
     int[] newClick = new int[2];
-    boolean eatClick = true;    // 在缩放和移动的时候,不触发 click 事件
+    boolean eatClick = true;    // 在缩放和移动的时候,不触发 Click 事件
 
-    private int maxRow = 16;
-    private int maxColumn = 16;
+    private int maxRow = 5;
+    private int maxColumn = 1;
+
+    private int mDefWidth;      // 座位 宽
+    private int mDefHeight;     // 座位 高
 
     public SeatLayoutView(Context context) {
         super(context);
@@ -78,53 +76,53 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
 
         mContext = context;
 
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.advance_order_view, this ,true);
-        defWidth = getResources().getDimensionPixelSize(R.dimen.padding_20dp);
+        Resources res = getResources();
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.advance_order_view, this, true);
+        screenWidth = res.getDisplayMetrics().widthPixels;
 
-        initSeatTable(); // 初始化 seatTable
+//        initSeatTable();                    // 初始化 SeatTable
         selectedSeats = new ArrayList<>();
-        seatTableView = (SeatTableView) view.findViewById(R.id.seatviewcont);
-        rowView = (LinearLayout) view.findViewById(R.id.seatraw);
 
-        seatTableView.setSeatTable(seatTable);  // 设置数据
-        seatTableView.setRowSize(maxRow);       // 设置最大行
-        seatTableView.setColumnSize(maxColumn); // 设置最大列
-        seatTableView.setOnTouchListener(this); // 设置点击监听
-        seatTableView.setDefWidth(defWidth);    // 设置 item 的宽度
-        onChanged();
+        seatTableView = (SeatTableView) view.findViewById(R.id.seatviewcont);
+
+        mDefWidth = seatTableView.getmDefWidth();
+        mDefHeight = seatTableView.getmDefHeight();
+
+        seatTable = seatTableView.getSeatTable();
+
+        seatTableView.setOnTouchListener(this);     // 设置 点击监听
 
         // Setup Gesture Detectors
         mScaleDetector = new ScaleGestureDetector(mContext, new ScaleListener());
         mMoveDetector = new MoveGestureDetector(mContext, new MoveListener());
-
     }
 
     // 左侧的座位列号
-    public void onChanged() {
-        rowView.removeAllViews();
-        rowView.setPadding(getResources().getDimensionPixelSize(
-                R.dimen.padding_1dp),(int) (mFocusY), 0, 0); // 上下移动
-
-        for (int i = 0; i < seatTableView.getRowSize(); i++) {
-            TextView textView = new TextView(mContext);
-
-            // 座位有可能为空；
-            for (int j = 0; j < seatTableView.getColumnSize(); j++) {
-                if (seatTable[i][j] != null) {
-                    textView.setText(seatTable[i][j].rowName);
-                    break;
-                }
-            }
-            textView.setTextSize(8.0f * mScaleFactor);
-            textView.setTextColor(Color.LTGRAY);
-            textView.setGravity(Gravity.CENTER);
-            textView.setLayoutParams(new ViewGroup.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    (int)(defWidth * mScaleFactor)));
-            textView.setPadding(getResources().getDimensionPixelSize(R.dimen.padding_2dp), 0, getResources().getDimensionPixelSize(R.dimen.padding_2dp), 0);
-            rowView.addView(textView);
-        }
-    }
+//    public void onChanged() {
+//        rowView.removeAllViews();
+//        rowView.setPadding(getResources().getDimensionPixelSize(
+//                R.dimen.padding_1dp),(int) (mFocusY), 0, 0); // 上下移动
+//
+//        for (int i = 0; i < seatTableView.getRowSize(); i++) {
+//            TextView textView = new TextView(mContext);
+//
+//            // 座位有可能为空；
+//            for (int j = 0; j < seatTableView.getColumnSize(); j++) {
+//                if (seatTable[i][j] != null) {
+//                    textView.setText(seatTable[i][j].rowName);
+//                    break;
+//                }
+//            }
+//            textView.setTextSize(8.0f * mScaleFactor);
+//            textView.setTextColor(Color.LTGRAY);
+//            textView.setGravity(Gravity.CENTER);
+//            textView.setLayoutParams(new ViewGroup.LayoutParams(
+//                    LinearLayout.LayoutParams.WRAP_CONTENT,
+//                    (int)(defWidth * mScaleFactor)));
+//            textView.setPadding(getResources().getDimensionPixelSize(R.dimen.padding_2dp), 0, getResources().getDimensionPixelSize(R.dimen.padding_2dp), 0);
+//            rowView.addView(textView);
+//        }
+//    }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         public boolean onScale(ScaleGestureDetector detector) {
@@ -140,32 +138,19 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
 
     private class MoveListener extends MoveGestureDetector.SimpleOnMoveGestureListener {
         public boolean onMove(MoveGestureDetector detector) {
-            PointF d = detector.getFocusDelta();
+            PointF p = detector.getFocusDelta();
 
-            eatClick = d.x > 1 || d.y > 1; // 如果移动速度大于 1, 表示不视为点击事件；
-            mFocusX += d.x;
-            mFocusY += d.y;
+            eatClick = p.x > 1 || p.y > 1;  // 移动位移
+            mFocusX += p.x;
+            mFocusY += p.y;
 
-            DebugLog.d(DebugLog.TAG, "MoveListener:onMove "
-                    + "mFocusX : " + mFocusX
-                    + " mFocusY : " + mFocusY);
-
+//            DebugLog.d(DebugLog.TAG, " MoveListener:onMove "
+//                    + "p.x : " + p.x
+//                    + " p.y : " + p.y);
+//            DebugLog.d(DebugLog.TAG, " MoveListener:onMove "
+//                    + "mFocusX : " + mFocusX
+//                    + " mFocusY : " + mFocusY);
             return true;
-        }
-    }
-
-    private void initSeatTable() {
-        seatTable = new SeatMo[maxRow][maxColumn];// mock data
-        for (int i = 0; i < maxRow; i++) {
-            for (int j = 0; j < maxColumn; j++) {
-                SeatMo seat = new SeatMo();
-                seat.row = i;
-                seat.column = j;
-                seat.rowName = String.valueOf((char)('A' + i));
-                seat.seatName = seat.rowName + "排" + (j + 1) + "座";
-                seat.status = randInt(-2, 1);//假设-2为空座位
-                seatTable[i][j] = seat.status == -2 ? null : seat;
-            }
         }
     }
 
@@ -178,16 +163,24 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
 
     // click 的坐标
     public int[] getClickPoint(MotionEvent event) {
+
         float currentXPosition = event.getX() - mFocusX;
         float currentYPosition = event.getY() - mFocusY;    // 修正坐标
 
-        float seatWidth = seatTableView.getSeatWidth();
+        float seatWidth = seatTableView.getmSeatWidth();
         for (int i = 0; i < seatTableView.getRowSize(); i++) {
             for (int j = 0; j < seatTableView.getColumnSize(); j++) {
-                if ((j * seatWidth) < currentXPosition && currentXPosition < (j + 1) * seatWidth
+
+                DebugLog.d(DebugLog.TAG, "SeatLayoutView:getClickPoint "
+                        + "j : " + j
+                        + " seatWidth : " + seatWidth
+                        + " currentXPosition : " + currentXPosition);
+
+                if ((j * seatWidth) < currentXPosition
+                        && currentXPosition < (j + 1) * seatWidth
                         && (i * seatWidth) < currentYPosition && currentYPosition < (i + 1) * seatWidth
                         && seatTable[i][j] != null
-                        && seatTable[i][j].status >= 1) {   // 1 和 2  才能被点击
+                        && seatTable[i][j].status >= 1) {   // 1 和 2 才能被点击
 
                     return new int[]{i, j};
                 }
@@ -235,9 +228,9 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
         mScaleDetector.onTouchEvent(event);
         mMoveDetector.onTouchEvent(event);
 
-        float diffScal = Math.abs(mPreScaleFactor - mScaleFactor); // 之前的缩放因子 - 当前的缩放因子；
-        float diffY = Math.abs(mPreFocusY - mFocusY);           // Y 轴方向的绝对位移
-        float diffX = Math.abs(mPreFocusX - mFocusX);           // X 轴方向的绝对位移
+        float diffScal = Math.abs(mPreScaleFactor - mScaleFactor);  // 之前的缩放倍数 - 当前的缩放倍数；
+        float diffY = Math.abs(mPreFocusY - mFocusY);               // Y 轴方向的绝对位移
+        float diffX = Math.abs(mPreFocusX - mFocusX);               // X 轴方向的绝对位移
 
         // Log.i(TAG, "diffScal = " + diffScal + ", preSeatWidth = " + preSeatWidth + ", diffY ＝ " + diffY + ", diffX = " + diffX);
         // 如果 触发点击 或者 Y 轴方向位移 大于 5 或者 X 轴方向位移大于 5 或者 缩放因子差值 大于 0.01;
@@ -249,35 +242,48 @@ public class SeatLayoutView extends FrameLayout implements View.OnTouchListener 
 
             // 限定移动区域
             // minLeft = seatTableView 的宽度 - 屏幕宽度
-            minLeft = (int) (defWidth * mScaleFactor * maxColumn) - screenWidth;
+            minLeft = (int) (mDefWidth * mScaleFactor * maxColumn) - screenWidth;
+
+            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "minLeft : " + minLeft);
+            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "screenWidth : " + screenWidth);
+
             mFocusX = minLeft > 0 ?
                     // -minLeft <= mFocusX <= defWidth*mScaleFactor
-                    Math.max(-minLeft, Math.min(mFocusX, defWidth * mScaleFactor))
+                    Math.max(-minLeft, Math.min(mFocusX, mDefWidth * mScaleFactor))
                     // 0 <= mFocusX <= defWidth * mScaleFactor
-                    : Math.max(0, Math.min(mFocusX, defWidth * mScaleFactor));
+                    : Math.max(0, Math.min(mFocusX, mDefWidth * mScaleFactor));
+
+            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
 
             //
-            minTop = (int) (defWidth * mScaleFactor * maxRow) - seatTableView.getMeasuredHeight();
+            minTop = (int) (mDefHeight * mScaleFactor * maxRow) - seatTableView.getMeasuredHeight();
+
+            // minTop : -292
+            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "minTop : " + minTop);
 
             // -minTop <= mFocusY <= 0
             mFocusY = minTop > 0 ? Math.max(-minTop, Math.min(mFocusY, 0)) : 0;
 
+            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "mFocusY : " + mFocusY);
+
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
 
             seatTableView.mScaleFactor = mScaleFactor;
-            seatTableView.mPosX = mFocusX;
-            seatTableView.mPosY = mFocusY;
+            seatTableView.mPaddingTop = mFocusX;
+            seatTableView.mPaddingLeft = mFocusY;
 
             // 重新绘制
-            int seatWidth = (int) (defWidth * mScaleFactor);    // 座位的新宽高
+            int seatWidth = (int) (mDefWidth * mScaleFactor);    // 座位的新宽高
+            int seatHeight = (int) (mDefHeight * mScaleFactor);
+
             // 可购买座位
-            seatTableView.seat_sale = createScaledBitmap(seatTableView.SeatSale, seatWidth, seatWidth, true);
+            seatTableView.seat_sale = createScaledBitmap(seatTableView.SeatSale, seatWidth, seatHeight, true);
             // 红色 已售座位
-            seatTableView.seat_sold = createScaledBitmap(seatTableView.SeatSold, seatWidth, seatWidth, true);
+            seatTableView.seat_sold = createScaledBitmap(seatTableView.SeatSold, seatWidth, seatHeight, true);
             // 绿色 我的选择
-            seatTableView.seat_selected = createScaledBitmap(seatTableView.SeatSelected, seatWidth, seatWidth, true);
+            seatTableView.seat_selected = createScaledBitmap(seatTableView.SeatSelected, seatWidth, seatHeight, true);
             seatTableView.invalidate();
-            onChanged();
+
         }
 
         return true;

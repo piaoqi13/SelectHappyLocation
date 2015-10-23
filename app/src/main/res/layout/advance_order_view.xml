@@ -11,12 +11,12 @@
         android:paddingRight="10dp">
     </com.fuwei.selecthappylocation.view.SeatTableView>
 
-    <LinearLayout
-        android:id="@+id/seatraw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/trans_black"
-        android:orientation="vertical" >
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/seatraw"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/trans_black"-->
+        <!--android:orientation="vertical" >-->
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
