@@ -46,7 +46,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private int mSeatWidth;  // 座位图 宽
     private int mSeatHeight; // 座位图 高
 
-    private int mDefWidth;   // 初始值 宽 
+    private int mDefWidth;   // 初始值 宽
     private int mDefHeight;  // 初始值 高
 
     private int mWidthGap;     //
@@ -54,7 +54,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
     // 放大率和移动位置
     public float mScaleFactor = 1.f;
-    public float mPaddingTop = 20.0f;        // View 的开始位置 X 坐标 以及左右边界；
+    public float mPaddingTop = .0f;        // View 的开始位置 X 坐标 以及左右边界；
     public float mPaddingLeft = .0f;         // View 的开始位置 Y 坐标 以及上下边界；
 
     private SeatMo[][] seatTable;
@@ -189,22 +189,22 @@ public class SeatTableView extends View implements View.OnTouchListener {
                         case -1:
                         case 0: {
                             canvas.drawBitmap(seat_sold,
-                                    j * (mSeatWidth) + mPaddingTop + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingLeft + i * mHeightGap,
+                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
+                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
                                     null);
                             break;
                         }
                         case 1: {
                             canvas.drawBitmap(seat_sale,
-                                    j * (mSeatWidth) + mPaddingTop + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingLeft + i * mHeightGap,
+                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
+                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
                                     null);
                             break;
                         }
                         case 2: {
                             canvas.drawBitmap(seat_selected,
-                                    j * (mSeatWidth) + mPaddingTop + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingLeft + i * mHeightGap,
+                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
+                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
                                     null);
                             break;
                         }
@@ -295,6 +295,8 @@ public class SeatTableView extends View implements View.OnTouchListener {
         float currentYPosition = event.getY() - mFocusY;    // 修正坐标
 
         float seatWidth = mSeatWidth;
+        float seatHeight = mSeatHeight;
+
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
 
@@ -303,9 +305,10 @@ public class SeatTableView extends View implements View.OnTouchListener {
                         + " seatWidth : " + seatWidth
                         + " currentXPosition : " + currentXPosition);
 
-                if ((j * seatWidth) < currentXPosition
-                        && currentXPosition < (j + 1) * seatWidth
-                        && (i * seatWidth) < currentYPosition && currentYPosition < (i + 1) * seatWidth
+                if ((j * (seatWidth + mWidthGap)) < currentXPosition
+                        && currentXPosition < (j + 1) * (seatWidth + mWidthGap)
+                        && (i * (seatHeight + mHeightGap)) < currentYPosition
+                        && currentYPosition < (i + 1) * (seatHeight + mHeightGap)
                         && seatTable[i][j] != null
                         && seatTable[i][j].status >= 1) {   // 1 和 2 才能被点击
 
@@ -392,8 +395,9 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
 
-            mPaddingTop = mFocusX;
-            mPaddingLeft = mFocusY;
+
+            mPaddingTop = mFocusY;
+            mPaddingLeft = mFocusX;
 
             // 重新绘制
             int seatWidth = (int) (mDefWidth * mScaleFactor);    // 座位的新宽高
