@@ -10,4 +10,11 @@
     <dimen name="margin_15dp">15dp</dimen>
 
     <dimen name="text_size_18sp">18sp</dimen>
+
+    <dimen name="def_width">61dp</dimen>
+    <dimen name="def_height">29dp</dimen>
+
+    <dimen name="width_gap">9dp</dimen>
+    <dimen name="height_gap">5dp</dimen>
+
 </resources>

@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-    <com.fuwei.selecthappylocation.view.SeatTableView
-        android:id="@+id/seatviewcont"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="10dp">
-    </com.fuwei.selecthappylocation.view.SeatTableView>
-
-    <LinearLayout
-        android:id="@+id/seatraw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/trans_black"
-        android:orientation="vertical" >
-    </LinearLayout>
-
-</RelativeLayout>
+<com.fuwei.selecthappylocation.view.SeatTableView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/seatviewcont"
+    android:layout_width="match_parent"
+    android:background="#343434"
+    android:layout_height="wrap_content" />
