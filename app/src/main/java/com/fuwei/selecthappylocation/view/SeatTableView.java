@@ -11,12 +11,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.Toast;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
 import com.fuwei.selecthappylocation.R;
-import com.fuwei.selecthappylocation.log.DebugLog;
 import com.fuwei.selecthappylocation.model.SeatMo;
+import com.fuwei.selecthappylocation.util.EasyLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -172,7 +171,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
         //
         int n = Math.min(rowSize - 1, m + (height / mSeatHeight) + 2);  // 两边多显示1列,避免临界的突然消失的现象
 
-        DebugLog.d(DebugLog.TAG, "SeatTableView:onDraw "
+        EasyLogger.d("Linky", "SeatTableView:onDraw "
                 + " m : " + m
                 + " n : " + n);
 
@@ -265,8 +264,8 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         public boolean onScale(ScaleGestureDetector detector) {
 
-            DebugLog.d(DebugLog.TAG, "ScaleListener:onScale " + "getScaleFactor : " + detector.getScaleFactor());
-            DebugLog.d(DebugLog.TAG, "ScaleListener:onScale " + "mScaleFactor : " + mScaleDetector);
+            EasyLogger.d("Linky", "ScaleListener:onScale " + "getScaleFactor : " + detector.getScaleFactor());
+            EasyLogger.d("Linky", "ScaleListener:onScale " + "mScaleFactor : " + mScaleDetector);
 
             mScaleFactor *= detector.getScaleFactor();      // scale change since previous event
             mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.5f));
@@ -300,7 +299,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
 
-                DebugLog.d(DebugLog.TAG, "SeatLayoutView:getClickPoint "
+                EasyLogger.d("Linky", "SeatLayoutView:getClickPoint "
                         + "j : " + j
                         + " seatWidth : " + seatWidth
                         + " currentXPosition : " + currentXPosition);
@@ -371,8 +370,8 @@ public class SeatTableView extends View implements View.OnTouchListener {
             // minLeft = seatTableView 的宽度 - 屏幕宽度
             minLeft = (int) (mDefWidth * mScaleFactor * columnSize) - screenWidth;
 
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "minLeft : " + minLeft);
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "screenWidth : " + screenWidth);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "minLeft : " + minLeft);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "screenWidth : " + screenWidth);
 
             mFocusX = minLeft > 0 ?
                     // -minLeft <= mFocusX <= defWidth*mScaleFactor
@@ -380,18 +379,18 @@ public class SeatTableView extends View implements View.OnTouchListener {
                     // 0 <= mFocusX <= defWidth * mScaleFactor
                     : Math.max(0, Math.min(mFocusX, mDefWidth * mScaleFactor));
 
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
 
             //
             minTop = (int) (mDefHeight * mScaleFactor * rowSize) - getMeasuredHeight();
 
             // minTop : -292
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "minTop : " + minTop);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "minTop : " + minTop);
 
             // -minTop <= mFocusY <= 0
             mFocusY = minTop > 0 ? Math.max(-minTop, Math.min(mFocusY, 0)) : 0;
 
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "mFocusY : " + mFocusY);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusY : " + mFocusY);
 
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
 
