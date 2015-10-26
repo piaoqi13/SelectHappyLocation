@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.fuwei.selecthappylocation.view.SeatLayoutView;
+import com.fuwei.selecthappylocation.view.SeatTableView;
 
 public class RoomViewItem implements IRoom {
 
@@ -39,7 +39,7 @@ public class RoomViewItem implements IRoom {
     @Override
     public View getLayoutView() {
         if(mLayoutView == null)
-            mLayoutView = new SeatLayoutView(mContext);
+            mLayoutView = new SeatTableView(mContext);
         return mLayoutView;
     }
 }

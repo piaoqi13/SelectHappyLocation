@@ -27,7 +27,7 @@
             android:id="@+id/selected_number"
             style="@style/common_text_style"
             android:layout_marginLeft="10dp"
-            android:text="00001"
+            android:text="0001"
             android:textColor="@color/text_color"
             android:textSize="18sp"/>
 
@@ -65,7 +65,7 @@
             android:layout_marginTop="10dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/btn_click_selector"
-            android:text="@string/begin_selection"/>
+            android:text="@string/sure"/>
 
         <LinearLayout
             android:id="@+id/desc"
