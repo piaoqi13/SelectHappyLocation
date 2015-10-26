@@ -5,11 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.fuwei.selecthappylocation.view.TitleView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:bar_title="@string/addvance_book"
-        app:return_back="true"/>
+    <include layout="@layout/navigation_bar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +33,6 @@
         android:id="@+id/room_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="10dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -50,20 +45,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/seat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10dp" />
+            android:layout_marginTop="@dimen/margin_10dp"/>
 
         <Button
             android:id="@+id/begin_selection"
             style="@style/button_style"
+            android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
-            android:layout_alignParentBottom="true"
             android:background="@drawable/btn_click_selector"
             android:text="@string/sure"/>
 
