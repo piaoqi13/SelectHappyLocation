@@ -34,4 +34,6 @@
 
     <string name="title_selection_detail_text">福位详情</string>
     <string name="title_my_selection_text">我的选号</string>
+
+    <string name="title_advance_book_text">高端定制</string>
 </resources>

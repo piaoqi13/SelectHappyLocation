@@ -14,8 +14,8 @@ import android.view.View;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
 import com.fuwei.selecthappylocation.R;
-import com.fuwei.selecthappylocation.log.DebugLog;
 import com.fuwei.selecthappylocation.model.SeatMo;
+import com.fuwei.selecthappylocation.util.EasyLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,6 +182,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
         int m = mFocusY > 0 ? 0 : (int) (-mFocusY / (mSeatHeight + mHeightGap));
         int n = Math.min((int) ((getMeasuredHeight() - mFocusY) / (mSeatHeight + mHeightGap)) + 1, mRowSize);
 
+
         for (int i = m; i < n; i++) {
             // 绘制中线, 座位间隔由图片来做, 简化处理
 //            int k = (int)(mPaddingTop + mSeatHeight + mHeightGap + 0.5f);
@@ -246,7 +247,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         public boolean onScale(ScaleGestureDetector detector) {
-
             mScaleFactor *= detector.getScaleFactor();      // scale change since previous event
             mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.5f));
             return true;
@@ -353,7 +353,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
 //                    Math.max((-minLeft + mMarginLeft), Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
                     Math.max(-minLeft + mWidthGap * (mScaleFactor - 1) * mColumnSize, Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
 
-            DebugLog.d(DebugLog.TAG, "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
+            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
 
             //
             minTop = (int) ((mDefHeight + mHeightGap) * mScaleFactor * mRowSize) - getMeasuredHeight();
@@ -361,8 +361,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
             // -minTop <= mFocusY <= 0
             // 当 > 0 时，
             mFocusY = minTop > 0 ? Math.max(-minTop+(mHeightGap * (mScaleFactor - 1 ) * mRowSize), Math.min(mFocusY,0)) : 0;
-
-            DebugLog.d(DebugLog.TAG, "SeatTableView:onTouch " + "mFocusY : " + mFocusY);
 
             //
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
