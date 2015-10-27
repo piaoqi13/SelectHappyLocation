@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="185dp"
+            android:layout_marginTop="165dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -36,7 +36,7 @@
                     android:id="@+id/passw_1"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="1dp"
+                    android:layout_marginRight="0.0dp"
                     android:layout_weight="1"
                     android:background="@drawable/random_number_background"/>
 
@@ -44,7 +44,7 @@
                     android:id="@+id/passw_2"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="1dp"
+                    android:layout_marginRight="0.0dp"
                     android:layout_toRightOf="@id/passw_1"
                     android:layout_weight="1"
                     android:background="@drawable/random_number_background"/>
@@ -53,7 +53,7 @@
                     android:id="@+id/passw_3"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="1dp"
+                    android:layout_marginRight="0.0dp"
                     android:layout_toRightOf="@id/passw_2"
                     android:layout_weight="1"
                     android:background="@drawable/random_number_background"/>
@@ -62,7 +62,7 @@
                     android:id="@+id/passw_4"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="1dp"
+                    android:layout_marginRight="0.0dp"
                     android:layout_toRightOf="@id/passw_3"
                     android:layout_weight="1"
                     android:background="@drawable/random_number_background"/>
