@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fuwei.selecthappylocation.R;
-import com.fuwei.selecthappylocation.log.DebugLog;
 import com.fuwei.selecthappylocation.model.IRoom;
 import com.fuwei.selecthappylocation.model.RoomDataItem;
 import com.fuwei.selecthappylocation.util.EasyLogger;
