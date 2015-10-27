@@ -23,7 +23,7 @@ public class SeatMo extends BaseMo {
 	public int column;
 
     /**
-     * 座位状态:1：可售，0：已售，-1：删除(非法)
+     * 座位状态:1：可售，0：已售，-1：锁定，2：选中
      */
 	public int status;
 
