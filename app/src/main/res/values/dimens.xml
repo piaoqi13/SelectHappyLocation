@@ -17,4 +17,6 @@
     <dimen name="width_gap">9dp</dimen>
     <dimen name="height_gap">5dp</dimen>
 
+    <dimen name="common_padding_left">20dp</dimen>
+
 </resources>

@@ -25,12 +25,12 @@ import static android.graphics.Bitmap.createScaledBitmap;
 
 /**
  * 座位显示等的 View
- * @author YanLu
+ * @author Linky
  */
 public class SeatTableView extends View implements View.OnTouchListener {
 
-    Bitmap seat_sale, seat_sold, seat_selected;
-    Bitmap SeatSale, SeatSold, SeatSelected;
+    Bitmap seat_sale, seat_sold, seat_selected,seat_locked;
+    Bitmap SeatSale, SeatSold, SeatSelected, SeatLocked;
 
     private Matrix mMatrix = new Matrix();
 
@@ -51,15 +51,17 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private int mWidthGap;     //
     private int mHeightGap;    //
 
+    private int mMarginLeft;    //
+
     // 放大率和移动位置
     public float mScaleFactor = 1.f;
-    public float mPaddingTop = .0f;        // View 的开始位置 X 坐标 以及左右边界；
-    public float mPaddingLeft = .0f;         // View 的开始位置 Y 坐标 以及上下边界；
+    public float mPaddingTop = .0f;             // View 的开始位置 X 坐标 以及左右边界；
+    public float mPaddingLeft = .0f;            // View 的开始位置 Y 坐标 以及上下边界；
 
     private SeatMo[][] seatTable;
 
-    private int rowSize = 5;
-    private int columnSize = 5;
+    private int mRowSize = 10;
+    private int mColumnSize = 5;
 
     private int screenWidth;
     private int minLeft;
@@ -118,7 +120,11 @@ public class SeatTableView extends View implements View.OnTouchListener {
         mHeightGap = res.getDimensionPixelSize(R.dimen.height_gap);
 
         // 左边距
-        mPaddingLeft = res.getDimensionPixelSize(R.dimen.width_gap);
+        mPaddingLeft = res.getDimensionPixelSize(R.dimen.common_padding_left);
+
+        // 左边距
+        mMarginLeft = res.getDimensionPixelSize(R.dimen.common_padding_left);
+        mFocusX = mMarginLeft;
 
         // 虚拟数据
         initSeatTable();
@@ -136,6 +142,9 @@ public class SeatTableView extends View implements View.OnTouchListener {
         SeatSelected = BitmapFactory.decodeResource(
                 context.getResources(),
                 R.mipmap.seat_selected);
+        SeatLocked = BitmapFactory.decodeResource(
+                context.getResources(),
+                R.mipmap.seat_locked);
     }
 
     protected void onDraw(Canvas canvas) {
@@ -145,7 +154,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
             throw new IllegalArgumentException("the width must > 10, the value is " + mDefWidth);
         }
 
-        mSeatWidth = (int) (mDefWidth * mScaleFactor);
+        mSeatWidth = (int) (mDefWidth* mScaleFactor);
         mSeatHeight = (int) (mDefHeight * mScaleFactor);
 
         width = getMeasuredWidth();
@@ -155,59 +164,59 @@ public class SeatTableView extends View implements View.OnTouchListener {
         if (seat_sale == null) {
             seat_sale = createScaledBitmap(SeatSale, mSeatWidth, mSeatHeight, true);
         }
+
         // 红色 已售座位
         if (seat_sold == null) {
             seat_sold = createScaledBitmap(SeatSold, mSeatWidth, mSeatHeight, true);
         }
+
         // 绿色 我的选择
-        if (seat_sold == null) {
-            seat_sold = createScaledBitmap(SeatSelected, mSeatWidth, mSeatHeight, true);
+        if (seat_selected == null) {
+            seat_selected = createScaledBitmap(SeatSelected, mSeatWidth, mSeatHeight, true);
         }
 
-        // 画座位
-        int m = (int)(mPaddingLeft + mSeatWidth);
-        m = m >= 0 ? 0 : -m / mSeatWidth;
+        if(seat_locked == null) {
+            seat_locked = createScaledBitmap(SeatLocked, mSeatWidth, mSeatHeight, true);
+        }
 
-        //
-        int n = Math.min(rowSize - 1, m + (height / mSeatHeight) + 2);  // 两边多显示1列,避免临界的突然消失的现象
+        int m = mFocusY > 0 ? 0 : (int) (-mFocusY / (mSeatHeight + mHeightGap));
+        int n = Math.min((int) ((getMeasuredHeight() - mFocusY) / (mSeatHeight + mHeightGap)) + 1, mRowSize);
 
-        EasyLogger.d("Linky", "SeatTableView:onDraw "
-                + " m : " + m
-                + " n : " + n);
 
-        for (int i = m; i <= n; i++) {
+        for (int i = m; i < n; i++) {
             // 绘制中线, 座位间隔由图片来做, 简化处理
-            int k = (int)(mPaddingTop + mSeatWidth + 0.5f);
-            k = k > 0 ? 0 : -k / mSeatWidth;                                 // 移动距离不可能出现移到 - rowSize
-            int l = Math.min(columnSize - 1, k + (width / mSeatWidth) + 2);  // 两边多显示 1 列,避免临界的突然消失的现象
+//            int k = (int)(mPaddingTop + mSeatHeight + mHeightGap + 0.5f);
+            int k = mFocusX > 0 ? 0 : (int) (-mFocusX / (mSeatWidth + mWidthGap));
+            int l = Math.min((int) ((screenWidth - mFocusX) / (mSeatWidth + mWidthGap)) + 1, mColumnSize);
 
-            for (int j = k; j <= l; j++) {
+            for (int j = k; j < l; j++) {
 
                 if (seatTable[i][j] != null) {
                     switch (seatTable[i][j].status) {
-                        case -1:
+                        case -1:    // -1 表示锁住
+                            canvas.drawBitmap(seat_locked,
+                                    j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
+                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
+                                    null);
                         case 0: {
                             canvas.drawBitmap(seat_sold,
-                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
+                                    j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
+                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
                                     null);
                             break;
                         }
                         case 1: {
                             canvas.drawBitmap(seat_sale,
-                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
+                                    j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
+                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
                                     null);
                             break;
                         }
                         case 2: {
                             canvas.drawBitmap(seat_selected,
-                                    j * (mSeatWidth) + mPaddingLeft + (j - 1) * mWidthGap,
-                                    i * (mSeatHeight) + mPaddingTop + i * mHeightGap,
+                                    j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
+                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
                                     null);
-                            break;
-                        }
-                        default: {
                             break;
                         }
                     }
@@ -217,16 +226,15 @@ public class SeatTableView extends View implements View.OnTouchListener {
     }
 
     private void initSeatTable() {
-        seatTable = new SeatMo[rowSize][columnSize];// mock data
-        for (int i = 0; i < rowSize; i++) {
-            for (int j = 0; j < columnSize; j++) {
+        seatTable = new SeatMo[mRowSize][mColumnSize];    // mock data
+        for (int i = 0; i < mRowSize; i++) {
+            for (int j = 0; j < mColumnSize; j++) {
                 SeatMo seat = new SeatMo();
                 seat.row = i;
                 seat.column = j;
                 seat.rowName = String.valueOf((char)('A' + i));
                 seat.seatName = seat.rowName + "排" + (j + 1) + "座";
                 seat.status = randInt(-1,1);
-//                seatTable[i][j] = seat.status == -2 ? null : seat;
                 seatTable[i][j] = seat;
             }
         }
@@ -237,36 +245,8 @@ public class SeatTableView extends View implements View.OnTouchListener {
         return rand.nextInt((max - min) + 1) + min;
     }
 
-    public SeatMo[][] getSeatTable() {
-        return seatTable;
-    }
-
-    public int getRowSize() {
-        return rowSize;
-    }
-
-    public int getColumnSize() {
-        return columnSize;
-    }
-
-    public int getmDefWidth() {
-        return mDefWidth;
-    }
-
-    public int getmDefHeight() {
-        return mDefHeight;
-    }
-
-    public int getmSeatWidth() {
-        return mSeatWidth;
-    }
-
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         public boolean onScale(ScaleGestureDetector detector) {
-
-            EasyLogger.d("Linky", "ScaleListener:onScale " + "getScaleFactor : " + detector.getScaleFactor());
-            EasyLogger.d("Linky", "ScaleListener:onScale " + "mScaleFactor : " + mScaleDetector);
-
             mScaleFactor *= detector.getScaleFactor();      // scale change since previous event
             mScaleFactor = Math.max(1.0f, Math.min(mScaleFactor, 1.5f));
             return true;
@@ -296,13 +276,8 @@ public class SeatTableView extends View implements View.OnTouchListener {
         float seatWidth = mSeatWidth;
         float seatHeight = mSeatHeight;
 
-        for (int i = 0; i < rowSize; i++) {
-            for (int j = 0; j < columnSize; j++) {
-
-                EasyLogger.d("Linky", "SeatLayoutView:getClickPoint "
-                        + "j : " + j
-                        + " seatWidth : " + seatWidth
-                        + " currentXPosition : " + currentXPosition);
+        for (int i = 0; i < mRowSize; i++) {
+            for (int j = 0; j < mColumnSize; j++) {
 
                 if ((j * (seatWidth + mWidthGap)) < currentXPosition
                         && currentXPosition < (j + 1) * (seatWidth + mWidthGap)
@@ -340,7 +315,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
                 if (!eatClick && i != -1 && j != -1 && i == oldClick[0] && j == oldClick[1]) {
 //                    座位状态:1：可售，0：已售，-1：删除(非法)
                     if (seatTable[i][j].status == 1) {  // 如果为可售状态；
-                        seatTable[i][j].status = 2;
+                        seatTable[i][j].status = 2;     // 选中状态
                         selectedSeats.add(seatTable[i][j]);
 //                        Toast.makeText(mContext, seatTable[i][j].seatName, Toast.LENGTH_SHORT).show();
                     } else {
@@ -368,32 +343,27 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
             // 限定移动区域
             // minLeft = seatTableView 的宽度 - 屏幕宽度
-            minLeft = (int) (mDefWidth * mScaleFactor * columnSize) - screenWidth;
+            int itemWidth = (int) ((mDefWidth + mWidthGap) * mScaleFactor * mColumnSize);
+            minLeft = itemWidth - screenWidth;
 
-            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "minLeft : " + minLeft);
-            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "screenWidth : " + screenWidth);
-
+            /**
+             * 大于 0 的意思是说，放大到 超过屏幕了
+             */
             mFocusX = minLeft > 0 ?
-                    // -minLeft <= mFocusX <= defWidth*mScaleFactor
-                    Math.max(-minLeft, Math.min(mFocusX, mDefWidth * mScaleFactor))
-                    // 0 <= mFocusX <= defWidth * mScaleFactor
-                    : Math.max(0, Math.min(mFocusX, mDefWidth * mScaleFactor));
+//                    Math.max((-minLeft + mMarginLeft), Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
+                    Math.max(-minLeft + mWidthGap * (mScaleFactor - 1) * mColumnSize, Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
 
             EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
 
             //
-            minTop = (int) (mDefHeight * mScaleFactor * rowSize) - getMeasuredHeight();
-
-            // minTop : -292
-            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "minTop : " + minTop);
+            minTop = (int) ((mDefHeight + mHeightGap) * mScaleFactor * mRowSize) - getMeasuredHeight();
 
             // -minTop <= mFocusY <= 0
-            mFocusY = minTop > 0 ? Math.max(-minTop, Math.min(mFocusY, 0)) : 0;
+            // 当 > 0 时，
+            mFocusY = minTop > 0 ? Math.max(-minTop+(mHeightGap * (mScaleFactor - 1 ) * mRowSize), Math.min(mFocusY,0)) : 0;
 
-            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusY : " + mFocusY);
-
+            //
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
-
 
             mPaddingTop = mFocusY;
             mPaddingLeft = mFocusX;
@@ -408,8 +378,28 @@ public class SeatTableView extends View implements View.OnTouchListener {
             seat_sold = createScaledBitmap(SeatSold, seatWidth, seatHeight, true);
             // 绿色 我的选择
             seat_selected = createScaledBitmap(SeatSelected, seatWidth, seatHeight, true);
+            // 锁定
+            seat_locked = createScaledBitmap(SeatLocked, seatWidth, seatHeight, true);
+
             invalidate();
+            mOnViewChangeListener.onViewChange(mRowSize,mFocusY, mScaleFactor);
         }
         return true;
+    }
+
+    public  int getmRowSize(){
+        return mRowSize;
+    }
+
+    public int getmColumnSize() {
+        return mColumnSize;
+    }
+
+    private OnViewChangeListener mOnViewChangeListener;
+    public void setmOnViewChangeListener(OnViewChangeListener onViewChangeListener) {
+        mOnViewChangeListener = onViewChangeListener;
+    }
+    public interface OnViewChangeListener {
+        public void onViewChange(int rowSize, float focusY, float scaleFactor);
     }
 }

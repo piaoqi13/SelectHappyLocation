@@ -22,7 +22,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.github.Almeros:android-gesture-detectors:1ffb8444ee'
     compile files('libs/android-async-http-1.4.4.jar')
     compile files('libs/commons-httpclient-3.0.1.jar')
     compile files('libs/gson-2.2.4.jar')

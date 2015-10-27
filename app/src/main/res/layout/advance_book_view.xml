@@ -43,67 +43,73 @@
 
     </com.fuwei.selecthappylocation.view.MyHorizontalScrollView>
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/seat_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:layout_marginTop="@dimen/margin_10dp" >
 
-        <FrameLayout
-            android:id="@+id/seat_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10dp"/>
-
-        <Button
-            android:id="@+id/begin_selection"
-            style="@style/button_style"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/btn_click_selector"
-            android:text="@string/sure"/>
 
         <LinearLayout
-            android:id="@+id/desc"
-            android:layout_width="match_parent"
+            android:id="@+id/seatraw"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/begin_selection"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:background="@color/trans_black"
+            android:orientation="vertical" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/yishoupng"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="已售"
-                android:textColor="@color/company_right"
-                android:textSize="10sp"/>
+    </FrameLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:drawableLeft="@mipmap/weishou"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="未售"
-                android:textColor="@color/company_right"
-                android:textSize="10sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:drawableLeft="@mipmap/suoding"
-                android:drawablePadding="5dp"
-                android:gravity="center_vertical"
-                android:text="已被锁定"
-                android:textColor="@color/company_right"
-                android:textSize="10sp"/>
+    <LinearLayout
+        android:id="@+id/desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/yishoupng"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="已售"
+            android:textColor="@color/company_right"
+            android:textSize="10sp"/>
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@mipmap/weishou"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="未售"
+            android:textColor="@color/company_right"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@mipmap/suoding"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="已被锁定"
+            android:textColor="@color/company_right"
+            android:textSize="10sp"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/begin_selection"
+        style="@style/button_style"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_click_selector"
+        android:text="@string/sure"/>
+
 </LinearLayout>
