@@ -14,9 +14,7 @@ import android.view.View;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
 import com.fuwei.selecthappylocation.R;
-import com.fuwei.selecthappylocation.log.DebugLog;
 import com.fuwei.selecthappylocation.model.SeatMo;
-import com.fuwei.selecthappylocation.util.EasyLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,8 +194,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
 //            int k = (int)(mPaddingTop + mSeatHeight + mHeightGap + 0.5f)；
             int k = mFocusX > 0 ? 0 : (int) (-mFocusX / (mSeatWidth + mWidthGap));
             int l = Math.min((int) ((screenWidth - mFocusX) / (mSeatWidth + mWidthGap)) + 1, mColumnSize);
-
-            DebugLog.d(DebugLog.TAG, "SeatTableView:onDraw " + "mPaddingTop : " + mPaddingTop);
 
             for (int j = k; j < l; j++) {
 
