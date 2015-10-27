@@ -99,9 +99,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         ImageView picture1 = new ImageView(mContext);
         ImageView picture2 = new ImageView(mContext);
         ImageView picture3 = new ImageView(mContext);
-        picture1.setBackgroundResource(R.drawable.main_advertisement);
-        picture2.setBackgroundResource(R.drawable.main_advertisement);
-        picture3.setBackgroundResource(R.drawable.main_advertisement);
+        picture1.setBackgroundResource(R.drawable.main_advertisement01);
+        picture2.setBackgroundResource(R.drawable.main_advertisement02);
+        picture3.setBackgroundResource(R.drawable.main_advertisement03);
         mViews.add(picture1);
         mViews.add(picture2);
         mViews.add(picture3);

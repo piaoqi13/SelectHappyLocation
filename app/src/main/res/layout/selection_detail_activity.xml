@@ -17,12 +17,13 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:fillViewport="true"
-            android:paddingBottom="15dp">
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="55dp">
 
                 <ImageView
                     android:layout_width="fill_parent"
@@ -32,7 +33,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/transparent_white"
                     android:orientation="vertical"
                     android:padding="10dp">
                     <!-- 区域 -->
@@ -116,7 +117,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:background="@color/transparent_white"
                     android:orientation="vertical"
                     android:padding="10dp">
 
