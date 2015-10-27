@@ -50,7 +50,6 @@
         android:layout_weight="1.0"
         android:layout_marginTop="@dimen/margin_10dp" >
 
-
         <LinearLayout
             android:id="@+id/seatraw"
             android:layout_width="wrap_content"
@@ -58,8 +57,14 @@
             android:background="@color/trans_black"
             android:orientation="vertical" />
 
-    </FrameLayout>
+        <LinearLayout
+            android:id="@+id/seatcolumn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/trans_black"
+            android:orientation="horizontal" />
 
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/desc"
@@ -98,6 +103,17 @@
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:text="已被锁定"
+            android:textColor="@color/company_right"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:drawableLeft="@mipmap/xuanzhong"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="被选中"
             android:textColor="@color/company_right"
             android:textSize="10sp"/>
 

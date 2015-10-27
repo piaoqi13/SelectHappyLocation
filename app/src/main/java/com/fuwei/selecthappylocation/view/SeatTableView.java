@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
 import com.fuwei.selecthappylocation.R;
+import com.fuwei.selecthappylocation.log.DebugLog;
 import com.fuwei.selecthappylocation.model.SeatMo;
 import com.fuwei.selecthappylocation.util.EasyLogger;
 
@@ -52,6 +53,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private int mHeightGap;    //
 
     private int mMarginLeft;    //
+    private int mMarginTop;
 
     // 放大率和移动位置
     public float mScaleFactor = 1.f;
@@ -60,7 +62,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
     private SeatMo[][] seatTable;
 
-    private int mRowSize = 10;
+    private int mRowSize = 15;
     private int mColumnSize = 5;
 
     private int screenWidth;
@@ -94,7 +96,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private void initViews(Context context) {
 
         initAttribute(context);
-        setOnTouchListener(this);     // 设置 点击监听
+        setOnTouchListener(this);           // 设置 点击监听
         setVerticalScrollBarEnabled(true);
         setHorizontalScrollBarEnabled(true);
 
@@ -122,9 +124,16 @@ public class SeatTableView extends View implements View.OnTouchListener {
         // 左边距
         mPaddingLeft = res.getDimensionPixelSize(R.dimen.common_padding_left);
 
+        // 上边距
+        mPaddingTop = res.getDimensionPixelSize(R.dimen.common_padding_top);
+
         // 左边距
         mMarginLeft = res.getDimensionPixelSize(R.dimen.common_padding_left);
         mFocusX = mMarginLeft;
+
+        // 上边距
+        mMarginTop = res.getDimensionPixelSize(R.dimen.common_padding_top);
+        mFocusY = mMarginTop;
 
         // 虚拟数据
         initSeatTable();
@@ -151,7 +160,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
         super.onDraw(canvas);
         // 只绘制可见的座位图
         if(mDefWidth < 10) {
-            throw new IllegalArgumentException("the width must > 10, the value is " + mDefWidth);
+            throw new IllegalArgumentException("The width must > 10, the value is " + mDefWidth);
         }
 
         mSeatWidth = (int) (mDefWidth* mScaleFactor);
@@ -182,12 +191,13 @@ public class SeatTableView extends View implements View.OnTouchListener {
         int m = mFocusY > 0 ? 0 : (int) (-mFocusY / (mSeatHeight + mHeightGap));
         int n = Math.min((int) ((getMeasuredHeight() - mFocusY) / (mSeatHeight + mHeightGap)) + 1, mRowSize);
 
-
         for (int i = m; i < n; i++) {
-            // 绘制中线, 座位间隔由图片来做, 简化处理
-//            int k = (int)(mPaddingTop + mSeatHeight + mHeightGap + 0.5f);
+            // 绘制中线, 座位间隔由图片来做, 简化处理；
+//            int k = (int)(mPaddingTop + mSeatHeight + mHeightGap + 0.5f)；
             int k = mFocusX > 0 ? 0 : (int) (-mFocusX / (mSeatWidth + mWidthGap));
             int l = Math.min((int) ((screenWidth - mFocusX) / (mSeatWidth + mWidthGap)) + 1, mColumnSize);
+
+            DebugLog.d(DebugLog.TAG, "SeatTableView:onDraw " + "mPaddingTop : " + mPaddingTop);
 
             for (int j = k; j < l; j++) {
 
@@ -196,26 +206,26 @@ public class SeatTableView extends View implements View.OnTouchListener {
                         case -1:    // -1 表示锁住
                             canvas.drawBitmap(seat_locked,
                                     j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
-                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
+                                    i * (mSeatHeight + mHeightGap) - mHeightGap + mPaddingTop,
                                     null);
                         case 0: {
                             canvas.drawBitmap(seat_sold,
                                     j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
-                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
+                                    i * (mSeatHeight + mHeightGap) - mHeightGap + mPaddingTop,
                                     null);
                             break;
                         }
                         case 1: {
                             canvas.drawBitmap(seat_sale,
                                     j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
-                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
+                                    i * (mSeatHeight + mHeightGap) - mHeightGap + mPaddingTop,
                                     null);
                             break;
                         }
                         case 2: {
                             canvas.drawBitmap(seat_selected,
                                     j * (mSeatWidth + mWidthGap) - mWidthGap + mPaddingLeft,
-                                    i * mSeatHeight + mPaddingTop + i * mHeightGap,
+                                    i * (mSeatHeight + mHeightGap) - mHeightGap + mPaddingTop,
                                     null);
                             break;
                         }
@@ -313,7 +323,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
                 // 如果 触发点击 & 点击区域有效 & 点击区域同时也是 DOWN 的区域
                 if (!eatClick && i != -1 && j != -1 && i == oldClick[0] && j == oldClick[1]) {
-//                    座位状态:1：可售，0：已售，-1：删除(非法)
                     if (seatTable[i][j].status == 1) {  // 如果为可售状态；
                         seatTable[i][j].status = 2;     // 选中状态
                         selectedSeats.add(seatTable[i][j]);
@@ -350,17 +359,16 @@ public class SeatTableView extends View implements View.OnTouchListener {
              * 大于 0 的意思是说，放大到 超过屏幕了
              */
             mFocusX = minLeft > 0 ?
-//                    Math.max((-minLeft + mMarginLeft), Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
-                    Math.max(-minLeft + mWidthGap * (mScaleFactor - 1) * mColumnSize, Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
-
-            EasyLogger.d("Linky", "SeatLayoutView:onTouch " + "mFocusX : " + mFocusX);
+                    Math.max(-minLeft + mWidthGap * (mScaleFactor - 1) * mColumnSize,
+                            Math.min(mFocusX, mMarginLeft)) : mMarginLeft;
 
             //
             minTop = (int) ((mDefHeight + mHeightGap) * mScaleFactor * mRowSize) - getMeasuredHeight();
 
-            // -minTop <= mFocusY <= 0
-            // 当 > 0 时，
-            mFocusY = minTop > 0 ? Math.max(-minTop+(mHeightGap * (mScaleFactor - 1 ) * mRowSize), Math.min(mFocusY,0)) : 0;
+            // 当 > 0 时
+            mFocusY = minTop > 0 ?
+                    Math.max(-minTop + (mHeightGap * (mScaleFactor - 1 ) * mRowSize),
+                            Math.min(mFocusY, mMarginTop)) : mMarginTop;
 
             //
             mMatrix.postScale(mScaleFactor, mScaleFactor);  // 宽高缩放相同的系数；
@@ -382,7 +390,7 @@ public class SeatTableView extends View implements View.OnTouchListener {
             seat_locked = createScaledBitmap(SeatLocked, seatWidth, seatHeight, true);
 
             invalidate();
-            mOnViewChangeListener.onViewChange(mRowSize,mFocusY, mScaleFactor);
+            mOnViewChangeListener.onViewChange(mColumnSize, mFocusX, mRowSize, mFocusY, mScaleFactor);
         }
         return true;
     }
@@ -390,7 +398,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
     public  int getmRowSize(){
         return mRowSize;
     }
-
     public int getmColumnSize() {
         return mColumnSize;
     }
@@ -398,8 +405,10 @@ public class SeatTableView extends View implements View.OnTouchListener {
     private OnViewChangeListener mOnViewChangeListener;
     public void setmOnViewChangeListener(OnViewChangeListener onViewChangeListener) {
         mOnViewChangeListener = onViewChangeListener;
+        // 初始化问题
+        mOnViewChangeListener.onViewChange(mColumnSize, mFocusX, mRowSize,mFocusY,mScaleFactor);
     }
     public interface OnViewChangeListener {
-        public void onViewChange(int rowSize, float focusY, float scaleFactor);
+        public void onViewChange(int columnSize, float focusX, int rowSize, float focusY, float scaleFactor);
     }
 }
