@@ -11,9 +11,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.Toast;
 
 import com.almeros.android.multitouch.MoveGestureDetector;
 import com.fuwei.selecthappylocation.R;
+import com.fuwei.selecthappylocation.activity.AdvanceBookActivity;
 import com.fuwei.selecthappylocation.model.SeatMo;
 
 import java.util.ArrayList;
@@ -78,9 +80,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
     int width;
     int height;
 
-    // 保存选中座位
-    public List<SeatMo> selectedSeats;
-
     public SeatTableView(Context context) {
         super(context, null);
         initViews(context);
@@ -135,8 +134,6 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
         // 虚拟数据
         initSeatTable();
-
-        selectedSeats = new ArrayList<>();
 
         screenWidth = res.getDisplayMetrics().widthPixels;
 
@@ -319,13 +316,21 @@ public class SeatTableView extends View implements View.OnTouchListener {
 
                 // 如果 触发点击 & 点击区域有效 & 点击区域同时也是 DOWN 的区域
                 if (!eatClick && i != -1 && j != -1 && i == oldClick[0] && j == oldClick[1]) {
+
                     if (seatTable[i][j].status == 1) {  // 如果为可售状态；
-                        seatTable[i][j].status = 2;     // 选中状态
-                        selectedSeats.add(seatTable[i][j]);
-//                        Toast.makeText(mContext, seatTable[i][j].seatName, Toast.LENGTH_SHORT).show();
+                        if(AdvanceBookActivity.mSeatMoSelected != null) {
+                            Toast.makeText(getContext(), "您之前已经选中过一个座位了，请先取消后再选", Toast.LENGTH_SHORT).show();
+                        } else {
+                            seatTable[i][j].status = 2;     // 选中状态；
+                            AdvanceBookActivity.mSeatMoSelected = seatTable[i][j];
+
+                            if(mOnSeatSelectedListener != null) {
+                                mOnSeatSelectedListener.onSeatSelected(seatTable[i][j]);
+                            }
+                        }
                     } else {
                         seatTable[i][j].status = 1;
-                        selectedSeats.remove(seatTable[i][j]);
+                        AdvanceBookActivity.mSeatMoSelected = null; // 取消选中；
                     }
                 }
                 break;
@@ -406,5 +411,14 @@ public class SeatTableView extends View implements View.OnTouchListener {
     }
     public interface OnViewChangeListener {
         public void onViewChange(int columnSize, float focusX, int rowSize, float focusY, float scaleFactor);
+    }
+
+
+    private OnSeatSelectedListener mOnSeatSelectedListener;
+    public void setmOnSeatSelectedListener(OnSeatSelectedListener onSeatSelectedListener) {
+        mOnSeatSelectedListener = onSeatSelectedListener;
+    }
+    public interface OnSeatSelectedListener {
+        void onSeatSelected(SeatMo seatMo);
     }
 }

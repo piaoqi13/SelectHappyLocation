@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.model.IRoom;
 import com.fuwei.selecthappylocation.model.RoomDataItem;
+import com.fuwei.selecthappylocation.model.SeatMo;
 import com.fuwei.selecthappylocation.util.EasyLogger;
 import com.fuwei.selecthappylocation.util.RoomInitUtils;
 import com.fuwei.selecthappylocation.view.MyHorizontalScrollView;
@@ -38,9 +39,8 @@ public class AdvanceBookActivity extends BaseActivity {
     private int mDefWidth;
     private int mHeightGap;
     private int mWidthGap;
-    private int mMarginTop
-            ;
-    private Button mBtnBeginSelection = null;
+
+    public static SeatMo mSeatMoSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +55,6 @@ public class AdvanceBookActivity extends BaseActivity {
 
         mDefWidth = getResources().getDimensionPixelSize(R.dimen.def_width);
         mWidthGap = getResources().getDimensionPixelSize(R.dimen.width_gap);
-
-        // 上边距
-        mMarginTop = getResources().getDimensionPixelSize(R.dimen.common_padding_top);
 
         super.onCreate(savedInstanceState);
     }
@@ -77,7 +74,6 @@ public class AdvanceBookActivity extends BaseActivity {
     }
 
     private SeatTableView mCurSeatTableView;
-
     private MyHorizontalScrollView.OnRoomSelectedListener mOnRoomSelectedListener
             = new MyHorizontalScrollView.OnRoomSelectedListener() {
         public void onRoomSelected(IRoom room) {
@@ -86,9 +82,17 @@ public class AdvanceBookActivity extends BaseActivity {
             }
             mCurSeatTableView = (SeatTableView) room.getLayoutView();
             mCurSeatTableView.setmOnViewChangeListener(mOnViewChangeListener);
+            mCurSeatTableView.setmOnSeatSelectedListener(mOnSeatSelectedListener);
             mSeatContainer.addView(mCurSeatTableView);
             mSeatContainer.addView(mLlSeatRaw);
             mSeatContainer.addView(mLlSeatColumn);
+        }
+    };
+
+    private SeatTableView.OnSeatSelectedListener mOnSeatSelectedListener
+            = new SeatTableView.OnSeatSelectedListener() {
+        public void onSeatSelected(SeatMo seatMo) {
+            mTvSelectedNumber.setText(seatMo.seatName);
         }
     };
 
