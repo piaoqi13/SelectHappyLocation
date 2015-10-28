@@ -31,8 +31,7 @@ public class StartPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.start_page_activity);
-//        mHandler.sendEmptyMessageDelayed(1, 2 * 1000);
-        mHandler.sendEmptyMessage(1);
+        mHandler.sendEmptyMessageDelayed(1, 1 * 1000);
     }
 
     @Override
