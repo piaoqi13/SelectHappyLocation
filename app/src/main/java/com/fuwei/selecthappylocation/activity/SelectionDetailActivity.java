@@ -23,6 +23,7 @@ public class SelectionDetailActivity extends BaseActivity implements View.OnClic
 
     private TextView mTvConfirmSelection = null;
     private TextView mTvCancelSelection = null;
+    private TextView mTvFuWeiNumber = null;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -49,6 +50,7 @@ public class SelectionDetailActivity extends BaseActivity implements View.OnClic
     public void initView() {
         mTvConfirmSelection = (TextView) findViewById(R.id.tv_confirm_selection);
         mTvCancelSelection = (TextView) findViewById(R.id.tv_cancel_selection);
+        mTvFuWeiNumber = (TextView) findViewById(R.id.tv_fuwei_number);
     }
 
     @Override
@@ -76,6 +78,7 @@ public class SelectionDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.tv_confirm_selection:
                 Intent intent = new Intent(mContext, MySelectionActivity.class);
+                intent.putExtra("Number", mTvFuWeiNumber.getText().toString());
                 Utils.toLeftAnim(mContext, intent, true);
                 break;
             case R.id.tv_cancel_selection:

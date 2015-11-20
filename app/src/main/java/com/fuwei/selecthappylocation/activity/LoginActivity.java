@@ -16,6 +16,7 @@ import com.fuwei.selecthappylocation.http.ReqListener;
 import com.fuwei.selecthappylocation.model.LoginInfo;
 import com.fuwei.selecthappylocation.model.ResultLoginInfo;
 import com.fuwei.selecthappylocation.util.BaiduMapUtil;
+import com.fuwei.selecthappylocation.util.IdentityCardVerify;
 import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 
@@ -31,6 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private int count = 0;
     private boolean isClicked = false;
+    private IdentityCardVerify verify = new IdentityCardVerify();
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -127,6 +129,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (isClicked) {
                     toShow("正在登录...");
                 } else {
+                    if (!verify.verify(mEdtIdentityNumber.getText().toString())) {
+                        toShow("请填写正确的身份证号码");
+                        return;
+                    }
                     isClicked = true;
                     // 点击禁止控件可用
                     mEdtIdentityNumber.setEnabled(false);

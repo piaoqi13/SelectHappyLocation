@@ -120,6 +120,16 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
                 mTvBirthdayDetail.setText(tip);
                 break;
             case R.id.btn_start_select:
+                if (mEdtName.getText().toString().equals("")) {
+                    toShow("请填写你的姓名");
+                    return;
+                } else if (mTvBirthday.getText().toString().equals("")) {
+                    toShow("请选择你的生日");
+                    return;
+                } else if (mTvBirthdayDetail.getText().toString().equals("")) {
+                    toShow("请选择你的生日时辰");
+                    return;
+                }
                 mLoading = new LoadingDialog(mContext);
                 mLoading.showDialog("加载中");
                 // Demo假数据

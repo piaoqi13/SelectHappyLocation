@@ -143,8 +143,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 }
             }
 
-            public void onPageScrolled(int arg0, float arg1, int arg2) { }
-            public void onPageScrollStateChanged(int arg0) { }
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            public void onPageScrollStateChanged(int arg0) {
+            }
         });
     }
 
@@ -175,8 +178,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_advanced_customization:
-                intent = new Intent(mContext, AdvanceBookActivity.class);
-                Utils.toLeftAnim(mContext, intent, false);
+                if (OnlineConfigAgent.getInstance().getConfigParams(mContext, "isAdvancedCustomization").equals("true")) {
+                    intent = new Intent(mContext, AdvanceBookActivity.class);
+                    Utils.toLeftAnim(mContext, intent, false);
+                } else {
+                    toShow("正在努力开发中...");
+                }
                 break;
             case R.id.ll_birthday_select:
                 intent = new Intent(mContext, BirthdaySelectionActivity.class);
