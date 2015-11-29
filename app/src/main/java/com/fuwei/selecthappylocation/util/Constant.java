@@ -14,6 +14,8 @@ public class Constant {
     private static final String SELECT_NUMBER_BY_RANDOM = "xxxx";
     // 我的选号接口
     private static final String MY_NUMBER = "xxxx";
+    // 随机选号接口
+    private static final String MY_RANDOM_SELECTION = "byRandDo";
 
     public static String getLoginUrl() {
         return BASE_URL + LOGIN;
@@ -29,5 +31,9 @@ public class Constant {
 
     public static String getMyNumberUrl() {
         return BASE_URL + MY_NUMBER;
+    }
+
+    public static String getRandomNumber() {
+        return BASE_URL + MY_RANDOM_SELECTION;
     }
 }
