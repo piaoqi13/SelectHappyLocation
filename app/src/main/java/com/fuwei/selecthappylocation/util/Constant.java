@@ -9,7 +9,7 @@ public class Constant {
     // 登录接口
     private static final String LOGIN = "login";
     // 生辰八字选号接口
-    private static final String SELECT_NUMBER_BY_BIRTHDAY = "xxxx";
+    private static final String SELECT_NUMBER_BY_BIRTHDAY = "byBirthday";
     // 随机选号接口
     private static final String SELECT_NUMBER_BY_RANDOM = "xxxx";
     // 我的选号接口

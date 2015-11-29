@@ -14,10 +14,11 @@ public class HttpParams {
     }
 
     // 生辰八字选号参数
-    public static RequestParams getBirthdayNumberParams(String name, String birthday) {
+    public static RequestParams getBirthdayNumberParams(String username, String birthday, String stime) {
         RequestParams params = new RequestParams();
-        params.put("name", name);
-        params.put("birthday", birthday);
+        params.put("username", username);
+        params.put("userbirth", birthday);
+        params.put("stime", stime);
         return params;
     }
 
