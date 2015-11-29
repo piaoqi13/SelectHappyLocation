@@ -3,6 +3,7 @@ package com.fuwei.selecthappylocation.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.fuwei.selecthappylocation.model.RoomDataItem;
 import com.fuwei.selecthappylocation.model.SeatMo;
 import com.fuwei.selecthappylocation.util.EasyLogger;
 import com.fuwei.selecthappylocation.util.RoomInitUtils;
+import com.fuwei.selecthappylocation.util.Utils;
 import com.fuwei.selecthappylocation.view.MyHorizontalScrollView;
 import com.fuwei.selecthappylocation.view.SeatTableView;
 
@@ -26,7 +28,7 @@ import java.util.Random;
 /**
  * 高端定制
  */
-public class AdvanceBookActivity extends BaseActivity {
+public class AdvanceBookActivity extends BaseActivity implements View.OnClickListener {
 
     private MyHorizontalScrollView mMyHorizontalScrollView;
     private FrameLayout mSeatContainer;
@@ -71,6 +73,16 @@ public class AdvanceBookActivity extends BaseActivity {
         mMyHorizontalScrollView.initViews(rooms);
         mMyHorizontalScrollView.setmOnRoomSelectedListener(mOnRoomSelectedListener);
         mMyHorizontalScrollView.focusToFirstChild();
+    }
+
+    @Override
+    public void initData() {
+        setTitle(R.string.title_advance_book_text);
+    }
+
+    @Override
+    public void initListener() {
+        getLeftBtn().setOnClickListener(this);
     }
 
     private SeatTableView mCurSeatTableView;
@@ -161,5 +173,21 @@ public class AdvanceBookActivity extends BaseActivity {
     public  int randInt(int min, int max) {
         Random rand = new Random();
         return rand.nextInt((max - min) + 1) + min;
+    }
+
+    @Override
+    protected void HandleLeftNavBtn() {
+        Utils.toRightAnim(mContext);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_left:
+                HandleLeftNavBtn();
+                break;
+            default:
+                break;
+        }
     }
 }

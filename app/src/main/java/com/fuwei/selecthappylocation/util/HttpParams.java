@@ -7,18 +7,18 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpParams {
     // 登录参数
-    public static RequestParams getLoginParams(String username, String password) {
+    public static RequestParams getLoginParams(String bodyId) {
         RequestParams params = new RequestParams();
-        params.put("username", username);
-        params.put("password", password);
+        params.put("bodyId", bodyId);
         return params;
     }
 
     // 生辰八字选号参数
-    public static RequestParams getBirthdayNumberParams(String name, String birthday) {
+    public static RequestParams getBirthdayNumberParams(String username, String birthday, String stime) {
         RequestParams params = new RequestParams();
-        params.put("name", name);
-        params.put("birthday", birthday);
+        params.put("username", username);
+        params.put("userbirth", birthday);
+        params.put("stime", stime);
         return params;
     }
 

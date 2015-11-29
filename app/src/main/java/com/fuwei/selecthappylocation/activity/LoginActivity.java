@@ -12,10 +12,15 @@ import android.widget.EditText;
 import com.fuwei.selecthappylocation.FuWeiApplication;
 import com.fuwei.selecthappylocation.R;
 import com.fuwei.selecthappylocation.event.Event;
+import com.fuwei.selecthappylocation.http.NetWorkUtil;
 import com.fuwei.selecthappylocation.http.ReqListener;
-import com.fuwei.selecthappylocation.model.LoginInfo;
+import com.fuwei.selecthappylocation.model.OrderInfo;
+import com.fuwei.selecthappylocation.model.PosInfo;
 import com.fuwei.selecthappylocation.model.ResultLoginInfo;
+import com.fuwei.selecthappylocation.model.RoomInfo;
+import com.fuwei.selecthappylocation.model.UserInfo;
 import com.fuwei.selecthappylocation.util.BaiduMapUtil;
+import com.fuwei.selecthappylocation.util.IdentityCardVerify;
 import com.fuwei.selecthappylocation.util.Settings;
 import com.fuwei.selecthappylocation.util.Utils;
 
@@ -25,12 +30,14 @@ import com.fuwei.selecthappylocation.util.Utils;
 public class LoginActivity extends BaseActivity implements View.OnClickListener, ReqListener {
     private static final int LOGIN_SUCCEED = 1;
     private static final int LOGIN_FAILED = 2;
+    private static final int LOGIN_SUCCEED_AND_HAVE_ORDER = 3;
 
     private EditText mEdtIdentityNumber = null;
     private Button mBtnLogin = null;
 
     private int count = 0;
     private boolean isClicked = false;
+    private IdentityCardVerify verify = new IdentityCardVerify();
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -60,6 +67,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     }
                     String tip = (String)msg.obj;
                     toShow(tip);
+                    break;
+                case LOGIN_SUCCEED_AND_HAVE_ORDER:
+
                     break;
             }
         };
@@ -127,6 +137,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (isClicked) {
                     toShow("正在登录...");
                 } else {
+                    if (!verify.verify(mEdtIdentityNumber.getText().toString())) {
+                        toShow("请填写正确的身份证号码");
+                        return;
+                    }
                     isClicked = true;
                     // 点击禁止控件可用
                     mEdtIdentityNumber.setEnabled(false);
@@ -138,9 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     if(mHandler != null && mRun != null) {
                         mHandler.postDelayed(mRun, 180);
                     }
-                    // Demo假数据
-//                    mHandler.sendEmptyMessageDelayed(LOGIN_SUCCEED,4444);
-                    mHandler.sendEmptyMessage(LOGIN_SUCCEED);
+                    NetWorkUtil.login(this, mEdtIdentityNumber.getText().toString().trim());
                 }
                 break;
             default:
@@ -153,11 +165,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         Message msg = new Message();
         switch (event) {
             case EVENT_LOGIN_SUCCESS:
-                LoginInfo login = ((ResultLoginInfo) obj).getData();
-                msg.what = LOGIN_SUCCEED;
-                msg.obj = login;
-                if (mHandler != null) {
-                    mHandler.sendMessage(msg);
+                if (obj == null) {// 新用户flag等于0
+                    msg.what = LOGIN_SUCCEED;
+                    if (mHandler != null) {
+                        mHandler.sendMessage(msg);
+                    }
+                } else {// 有订单
+                    OrderInfo orderInfo = ((ResultLoginInfo) obj).getOrderInfo();
+                    RoomInfo roomInfo =  ((ResultLoginInfo) obj).getRoomInfo();
+                    PosInfo posInfo =  ((ResultLoginInfo) obj).getPosInfo();
+                    UserInfo userInfo =  ((ResultLoginInfo) obj).getUserInfo();
+                    msg.what = LOGIN_SUCCEED_AND_HAVE_ORDER;
+                    if (mHandler != null) {
+                        mHandler.sendMessage(msg);
+                    }
                 }
                 break;
             case EVENT_LOGIN_FAIL:

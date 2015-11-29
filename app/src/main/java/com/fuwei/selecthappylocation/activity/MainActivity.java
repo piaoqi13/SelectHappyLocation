@@ -99,9 +99,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
         ImageView picture1 = new ImageView(mContext);
         ImageView picture2 = new ImageView(mContext);
         ImageView picture3 = new ImageView(mContext);
-        picture1.setBackgroundResource(R.drawable.main_advertisement);
-        picture2.setBackgroundResource(R.drawable.main_advertisement);
-        picture3.setBackgroundResource(R.drawable.main_advertisement);
+        picture1.setBackgroundResource(R.drawable.main_advertisement01);
+        picture2.setBackgroundResource(R.drawable.main_advertisement02);
+        picture3.setBackgroundResource(R.drawable.main_advertisement03);
         mViews.add(picture1);
         mViews.add(picture2);
         mViews.add(picture3);
@@ -143,8 +143,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 }
             }
 
-            public void onPageScrolled(int arg0, float arg1, int arg2) { }
-            public void onPageScrollStateChanged(int arg0) { }
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            public void onPageScrollStateChanged(int arg0) {
+            }
         });
     }
 
@@ -175,8 +178,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
                 Utils.toLeftAnim(mContext, intent, false);
                 break;
             case R.id.ll_advanced_customization:
-                intent = new Intent(mContext, AdvanceBookActivity.class);
-                Utils.toLeftAnim(mContext, intent, false);
+                if (OnlineConfigAgent.getInstance().getConfigParams(mContext, "isAdvancedCustomization").equals("true")) {
+                    intent = new Intent(mContext, AdvanceBookActivity.class);
+                    Utils.toLeftAnim(mContext, intent, false);
+                } else {
+                    toShow("正在努力开发中...");
+                }
                 break;
             case R.id.ll_birthday_select:
                 intent = new Intent(mContext, BirthdaySelectionActivity.class);
