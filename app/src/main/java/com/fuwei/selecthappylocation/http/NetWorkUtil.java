@@ -20,19 +20,23 @@ import java.net.SocketTimeoutException;
  */
 public class NetWorkUtil {
     // 登录
-    public static void login(final ReqListener listener, String username, String password) {
-        HttpClient.getInstance().doWork(Constant.getLoginUrl(), HttpParams.getLoginParams(username, password), new HttpCallBack() {
+    public static void login(final ReqListener listener, String bodyId) {
+        HttpClient.getInstance().doWork(Constant.getLoginUrl(), HttpParams.getLoginParams(bodyId), new HttpCallBack() {
             @Override
             public void succeed(int statusCode, String content) {
                 try {
                     JSONObject jsonObject = new JSONObject(content);
-                    if (jsonObject.optInt("code") != 200) {// 200是通路，如果不是就返回失败
+                    if (jsonObject.optInt("error") == 1) {// error等于1flag等于-1
                         listener.onUpdate(Event.EVENT_LOGIN_FAIL, jsonObject.optString("msg"));
-                        return;// 出去
+                    } else {
+                        if (jsonObject.optInt("flag") == 0) {// 有订单,无论是否支付字段一样
+                            listener.onUpdate(Event.EVENT_LOGIN_SUCCESS, null);
+                        } else {// flag等于1或2都走此分支
+                            Gson gson = new Gson();
+                            Object obj = gson.fromJson(jsonObject.toString(), ResultLoginInfo.class);
+                            listener.onUpdate(Event.EVENT_LOGIN_SUCCESS, obj);
+                        }
                     }
-                    Gson gson = new Gson();
-                    Object obj = gson.fromJson(jsonObject.toString(), ResultLoginInfo.class);
-                    listener.onUpdate(Event.EVENT_LOGIN_SUCCESS, obj);
                 } catch (JSONException e) {
                     EasyLogger.e("NetWorkUtil", "loginCatch=", e);
                     listener.onUpdate(Event.EVENT_LOGIN_FAIL, e.toString());

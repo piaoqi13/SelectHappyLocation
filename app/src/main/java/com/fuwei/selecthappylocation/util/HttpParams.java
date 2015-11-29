@@ -7,10 +7,9 @@ import com.loopj.android.http.RequestParams;
  */
 public class HttpParams {
     // 登录参数
-    public static RequestParams getLoginParams(String username, String password) {
+    public static RequestParams getLoginParams(String bodyId) {
         RequestParams params = new RequestParams();
-        params.put("username", username);
-        params.put("password", password);
+        params.put("bodyId", bodyId);
         return params;
     }
 

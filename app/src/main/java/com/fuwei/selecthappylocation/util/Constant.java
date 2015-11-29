@@ -5,9 +5,9 @@ package com.fuwei.selecthappylocation.util;
  */
 public class Constant {
     // 主地址
-    private static final String BASE_URL = "http://192.168.1.1:8080/fuwei/app/";
+    private static final String BASE_URL = "http://fu.lin3615.net/api/index/";
     // 登录接口
-    private static final String LOGIN = "xxxx";
+    private static final String LOGIN = "login";
     // 生辰八字选号接口
     private static final String SELECT_NUMBER_BY_BIRTHDAY = "xxxx";
     // 随机选号接口

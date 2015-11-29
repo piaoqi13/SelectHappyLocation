@@ -2,33 +2,43 @@ package com.fuwei.selecthappylocation.model;
 
 /**
  * Created by collin on 2015-10-02.
+ * modified by collin on 2015-11-29.
  */
 public class ResultLoginInfo {
-    private int result = 0;
-    private LoginInfo data = null;
-    private String msg = null;
+    private OrderInfo orderInfo = null;
+    private RoomInfo roomInfo = null;
+    private PosInfo posInfo = null;
+    private UserInfo userInfo = null;
 
-    public int getResult() {
-        return result;
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 
-    public LoginInfo getData() {
-        return data;
+    public RoomInfo getRoomInfo() {
+        return roomInfo;
     }
 
-    public void setData(LoginInfo data) {
-        this.data = data;
+    public void setRoomInfo(RoomInfo roomInfo) {
+        this.roomInfo = roomInfo;
     }
 
-    public String getMsg() {
-        return msg;
+    public PosInfo getPosInfo() {
+        return posInfo;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setPosInfo(PosInfo posInfo) {
+        this.posInfo = posInfo;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }
