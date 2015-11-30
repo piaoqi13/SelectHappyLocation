@@ -140,6 +140,37 @@ public class NetWorkUtil {
 
     }
 
+    // 生辰八字选号
+    public static void getBirthdaySelection(final ReqListener listener, String username, String birthday, String stime) {
+        HttpClient.getInstance().doWork(Constant.getSelectNumberByBirthdayUrl(), HttpParams.getBirthdayNumberParams(username, birthday, stime), new HttpCallBack() {
+
+            @Override
+            public void succeed(int statusCode, String content) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(content);
+
+                    if (jsonObject.optInt("error") == 1) {
+                        listener.onUpdate(Event.EVENT_GET_BIRTHDAY_SELECT_FAIL, jsonObject.optString("msg"));
+                    } else {
+                        listener.onUpdate(Event.EVENT_GET_BIRTHDAY_SELECT_SUCCESS, null);
+                    }
+                } catch (JSONException e) {
+                    EasyLogger.e("NetWorkUtil", "getBirthdaySelection Catch=", e);
+                    listener.onUpdate(Event.EVENT_GET_BIRTHDAY_SELECT_FAIL, e.toString());
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable error, String content) {
+                EasyLogger.e("NetWorkUtil", "getBirthdaySelection failed------error=" + error + "；content=" + content);
+                listener.onUpdate(Event.EVENT_GET_BIRTHDAY_SELECT_FAIL, setFailedInfo(error));
+            }
+        });
+
+    }
+
     // 非正常失败返回码
     private static String setFailedInfo(Throwable error) {
         String content = "服务器未知错误";// 404及其他
