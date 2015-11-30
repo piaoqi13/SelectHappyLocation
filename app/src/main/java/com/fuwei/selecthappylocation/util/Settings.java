@@ -17,6 +17,10 @@ public class Settings {
         public static final String SCREEN_HEIGHT = "screen_height";
     }
 
+    public static class BODY {
+        public static final String BODY_ID = "body_id";
+    }
+
     /**
      * 创建SharedPreferences文件
      */
