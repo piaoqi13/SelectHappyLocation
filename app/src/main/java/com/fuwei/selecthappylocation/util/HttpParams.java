@@ -16,16 +16,18 @@ public class HttpParams {
     // 生辰八字选号参数
     public static RequestParams getBirthdayNumberParams(String username, String birthday, String stime) {
         RequestParams params = new RequestParams();
+        params.put("bodyId", Settings.getString(Settings.BODY.BODY_ID, "", true));
         params.put("username", username);
         params.put("userbirth", birthday);
         params.put("stime", stime);
         return params;
     }
 
-    // 随机选号参数
-    public static RequestParams getRandomNumberParams(String currentTime) {
+    // 随机选号提交参数
+    public static RequestParams getSubmitNumberParams(String bodyId, String number) {
         RequestParams params = new RequestParams();
-        params.put("currentTime", currentTime);
+        params.put("bodyId", bodyId);
+        params.put("number", number);
         return params;
     }
 

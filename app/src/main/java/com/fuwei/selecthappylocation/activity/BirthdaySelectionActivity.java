@@ -1,7 +1,6 @@
 package com.fuwei.selecthappylocation.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,9 +15,8 @@ import com.fuwei.selecthappylocation.dialog.LoadingDialog;
 import com.fuwei.selecthappylocation.dialog.SpinnerWheelOneDialog;
 import com.fuwei.selecthappylocation.dialog.SpinnerWheelThreeDialog;
 import com.fuwei.selecthappylocation.event.Event;
+import com.fuwei.selecthappylocation.http.NetWorkUtil;
 import com.fuwei.selecthappylocation.http.ReqListener;
-import com.fuwei.selecthappylocation.model.BirthdaySelectLocation;
-import com.fuwei.selecthappylocation.model.ResultBirthdaySelectInfo;
 import com.fuwei.selecthappylocation.util.Utils;
 
 import java.util.Calendar;
@@ -46,8 +44,8 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
             switch (msg.what) {
                 case GET_BIRTHDAY_SELECT_SUCCEED:
                     mLoading.dismiss();
-                    Intent intent = new Intent(mContext, SelectionDetailActivity.class);
-                    Utils.toLeftAnim(mContext, intent, false);
+                    //Intent intent = new Intent(mContext, SelectionDetailActivity.class);
+                    //Utils.toLeftAnim(mContext, intent, false);
                     break;
                 case GET_BIRTHDAY_SELECT_FAILED:
                     mLoading.dismiss();
@@ -132,8 +130,9 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
                 }
                 mLoading = new LoadingDialog(mContext);
                 mLoading.showDialog("加载中");
-                // Demo假数据
-                mHandler.sendEmptyMessageDelayed(GET_BIRTHDAY_SELECT_SUCCEED, 4444);
+                // 接口走起
+                NetWorkUtil.getBirthdaySelection(BirthdaySelectionActivity.this,mEdtName.getText().toString(),
+                        mTvBirthday.getText().toString(), mTvBirthdayDetail.getText().toString());
                 break;
             default:
                 break;
@@ -145,9 +144,7 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
         Message msg = new Message();
         switch (event) {
             case EVENT_GET_BIRTHDAY_SELECT_SUCCESS:
-                BirthdaySelectLocation location = ((ResultBirthdaySelectInfo) obj).getData();
                 msg.what = GET_BIRTHDAY_SELECT_SUCCEED;
-                msg.obj = location;
                 if (mHandler != null) {
                     mHandler.sendMessage(msg);
                 }
