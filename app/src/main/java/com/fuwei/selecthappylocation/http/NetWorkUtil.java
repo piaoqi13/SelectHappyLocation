@@ -92,13 +92,6 @@ public class NetWorkUtil {
                         if (number != null) {
                             listener.onUpdate(Event.EVENT_RANDOM_SELECTION_SUCCESS, number);
                         }
-
-                        if (flag == 1 || flag == 2) { // 当flag =1或者flag = 2说明已经有了订单，直接到详情页即可
-                            Gson gson = new Gson();
-                            Object obj = gson.fromJson(jsonObject.toString(), ResultLoginInfo.class);
-                            listener.onUpdate(Event.EVENT_RANDOM_SELECTION_HAS_ORDER, obj);
-                        }
-
                     }
                 } catch (JSONException e) {
                     EasyLogger.e("NetWorkUtil", "random Catch=", e);
@@ -111,6 +104,37 @@ public class NetWorkUtil {
             public void failed(Throwable error, String content) {
                 EasyLogger.e("NetWorkUtil", "random failed------error=" + error + "；content=" + content);
                 listener.onUpdate(Event.EVENT_RANDOM_SELECTION_FAIL, setFailedInfo(error));
+            }
+        });
+
+    }
+
+    // 提交随机选号
+    public static void submitRandomSelection(final ReqListener listener, String bodyId, String number) {
+        HttpClient.getInstance().doWork(Constant.getSubmitNumberByRandomUrl(), HttpParams.getSubmitNumberParams(bodyId, number), new HttpCallBack() {
+
+            @Override
+            public void succeed(int statusCode, String content) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(content);
+
+                    if (jsonObject.optInt("error") == 1) {
+                        listener.onUpdate(Event.EVENT_SUBMIT_RANDOM_SELECTION_FAIL, jsonObject.optString("msg"));
+                    } else {
+                        listener.onUpdate(Event.EVENT_SUBMIT_RANDOM_SELECTION_SUCCESS, null);
+                    }
+                } catch (JSONException e) {
+                    EasyLogger.e("NetWorkUtil", "submitRandomSelection Catch=", e);
+                    listener.onUpdate(Event.EVENT_SUBMIT_RANDOM_SELECTION_FAIL, e.toString());
+                }
+
+            }
+
+            @Override
+            public void failed(Throwable error, String content) {
+                EasyLogger.e("NetWorkUtil", "submitRandomSelection failed------error=" + error + "；content=" + content);
+                listener.onUpdate(Event.EVENT_SUBMIT_RANDOM_SELECTION_FAIL, setFailedInfo(error));
             }
         });
 

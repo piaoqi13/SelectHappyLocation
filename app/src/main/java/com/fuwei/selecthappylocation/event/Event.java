@@ -13,7 +13,9 @@ public enum Event {
     EVENT_GET_SELECTION_DETAIL_SUCCESS,
     EVENT_GET_SELECTION_DETAIL_FAIL,
 
-    EVENT_RANDOM_SELECTION_SUCCESS,         // 返回成功
-    EVENT_RANDOM_SELECTION_FAIL,            // 请求失败
-    EVENT_RANDOM_SELECTION_HAS_ORDER        // 已经有房号了
+    EVENT_RANDOM_SELECTION_SUCCESS,             // 返回成功
+    EVENT_RANDOM_SELECTION_FAIL,                // 请求失败
+
+    EVENT_SUBMIT_RANDOM_SELECTION_SUCCESS,      // 提交随机选号成功
+    EVENT_SUBMIT_RANDOM_SELECTION_FAIL          // 提交随机选号失败
 }

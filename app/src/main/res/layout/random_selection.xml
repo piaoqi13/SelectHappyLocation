@@ -74,6 +74,14 @@
                 style="@style/button_style"
                 android:background="@drawable/btn_click_selector"
                 android:text="@string/begin_selection"/>
+
+            <Button
+                android:id="@+id/confirm_selection"
+                style="@style/button_style"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/btn_click_selector"
+                android:text="@string/confirm_select_number_text"
+                android:visibility="gone"/>
         </LinearLayout>
 
 

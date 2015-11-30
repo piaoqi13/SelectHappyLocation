@@ -10,8 +10,8 @@ public class Constant {
     private static final String LOGIN = "login";
     // 生辰八字选号接口
     private static final String SELECT_NUMBER_BY_BIRTHDAY = "byBirthday";
-    // 随机选号接口
-    private static final String SELECT_NUMBER_BY_RANDOM = "xxxx";
+    // 随机选号提交
+    private static final String SUBMIT_NUMBER_BY_RANDOM = "randomSubmit";
     // 我的选号接口
     private static final String MY_NUMBER = "xxxx";
     // 随机选号接口
@@ -25,8 +25,8 @@ public class Constant {
         return BASE_URL + SELECT_NUMBER_BY_BIRTHDAY;
     }
 
-    public static String getSelectNumberByRandomUrl() {
-        return BASE_URL + SELECT_NUMBER_BY_RANDOM;
+    public static String getSubmitNumberByRandomUrl() {
+        return BASE_URL + SUBMIT_NUMBER_BY_RANDOM;
     }
 
     public static String getMyNumberUrl() {
