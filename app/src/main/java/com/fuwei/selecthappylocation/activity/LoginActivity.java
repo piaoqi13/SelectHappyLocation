@@ -138,10 +138,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 if (isClicked) {
                     toShow("正在登录...");
                 } else {
-                    /*if (!verify.verify(mEdtIdentityNumber.getText().toString())) {
+                    if (!verify.verify(mEdtIdentityNumber.getText().toString())) {
                         toShow("请填写正确的身份证号码");
                         return;
-                    }*/
+                    }
                     isClicked = true;
                     // 点击禁止控件可用
                     mEdtIdentityNumber.setEnabled(false);
