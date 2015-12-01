@@ -12,8 +12,15 @@ import android.widget.TextView;
 
 import com.fuwei.selecthappylocation.FuWeiApplication;
 import com.fuwei.selecthappylocation.R;
+import com.fuwei.selecthappylocation.dialog.LoadingDialog;
 import com.fuwei.selecthappylocation.event.Event;
+import com.fuwei.selecthappylocation.http.NetWorkUtil;
 import com.fuwei.selecthappylocation.http.ReqListener;
+import com.fuwei.selecthappylocation.model.OrderInfo;
+import com.fuwei.selecthappylocation.model.PosInfo;
+import com.fuwei.selecthappylocation.model.ResultLoginInfo;
+import com.fuwei.selecthappylocation.model.RoomInfo;
+import com.fuwei.selecthappylocation.model.UserInfo;
 import com.fuwei.selecthappylocation.util.Utils;
 import com.fuwei.selecthappylocation.view.CountDownView;
 import com.umeng.analytics.MobclickAgent;
@@ -33,16 +40,21 @@ public class MySelectionActivity extends BaseActivity implements View.OnClickLis
     private TextView mTvArea;
     private Button mBtnEndChoose;
     private CountDownView mCountDownTimer;
+    private LoadingDialog mLoading = null;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case GET_MY_SELECTION_SUCCEED:
-                    Intent intent = new Intent(mContext, SelectionDetailActivity.class);
-                    Utils.toLeftAnim(mContext, intent, false);
+                    mLoading.dismiss();
+                    OrderInfo orderInfo = (OrderInfo)msg.obj;
+                    mTvArea.setText(orderInfo.getOrder_room_id() + "区域");
+                    mTvMySelection.setText(orderInfo.getOrder_location_id());
+                    mCountDownTimer.startCount(MySelectionActivity.this, Long.valueOf(orderInfo.getOrder_datetime()));
                     break;
                 case GET_MY_SELECTION_FAILED:
+                    mLoading.dismiss();
                     String tip = (String)msg.obj;
                     toShow(tip);
                     break;
@@ -69,7 +81,6 @@ public class MySelectionActivity extends BaseActivity implements View.OnClickLis
         mBtnEndChoose = (Button) findViewById(R.id.end_choose);
 
         mCountDownTimer = (CountDownView) findViewById(R.id.count_down_timer);
-        mCountDownTimer.startCount(this);
     }
 
     @Override
@@ -77,6 +88,9 @@ public class MySelectionActivity extends BaseActivity implements View.OnClickLis
         setTitle(R.string.title_my_selection_text);
         String quyu = getString(R.string.fuweiquyu);
         mTvArea.setText(String.format(quyu, "456"));
+        mLoading = new LoadingDialog(mContext);
+        mLoading.showDialog("正在查询");
+        NetWorkUtil.getMyNumber(this);
 
     }
 
@@ -133,6 +147,15 @@ public class MySelectionActivity extends BaseActivity implements View.OnClickLis
         Message msg = new Message();
         switch (event) {
             case EVENT_GET_MY_SELECTION_SUCCESS:
+                OrderInfo orderInfo = ((ResultLoginInfo) obj).getOrderInfo();
+                RoomInfo roomInfo =  ((ResultLoginInfo) obj).getRoomInfo();
+                PosInfo posInfo =  ((ResultLoginInfo) obj).getPosInfo();
+                UserInfo userInfo =  ((ResultLoginInfo) obj).getUserInfo();
+                msg.what = GET_MY_SELECTION_SUCCEED;
+                msg.obj = orderInfo;
+                if (mHandler != null) {
+                    mHandler.sendMessage(msg);
+                }
                 break;
             case EVENT_GET_MY_SELECTION_FAIL:
                 String tip = (String)obj;

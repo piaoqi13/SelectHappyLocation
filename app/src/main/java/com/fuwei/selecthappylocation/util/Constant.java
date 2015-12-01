@@ -13,7 +13,7 @@ public class Constant {
     // 随机选号提交
     private static final String SUBMIT_NUMBER_BY_RANDOM = "randomSubmit";
     // 我的选号接口
-    private static final String MY_NUMBER = "xxxx";
+    private static final String MY_NUMBER = "details";
     // 随机选号接口
     private static final String MY_RANDOM_SELECTION = "byRandDo";
 

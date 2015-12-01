@@ -1,10 +1,10 @@
 package com.fuwei.selecthappylocation.view;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.fuwei.selecthappylocation.R;
@@ -29,34 +29,30 @@ public class CountDownView extends TextView {
     /**
      * 两个小时的时间戳
      */
-    private final static long TWO_HOURS = 7200000;
+    private final static long TWO_HOURS = 7200;
     /**
      * 时分秒
      */
     private int mSecond, mMinute, mHour;
 
-    private SharedPreferences mSp;
     private Timer mTimer;
     private Context mContext;
 
     public CountDownView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        mSp = context.getSharedPreferences(TIME_REMAIN, Context.MODE_PRIVATE);
         mTimer = new Timer();
     }
 
-    public void startCount(Context context) {
+    public void startCount(Context context, long orderTime) {
         // 首先判断是否存在倒计时
-        long orderTime = getOrderTime(context);
         long remain;
-        /*if (orderTime != -1) {
-            remain = TWO_HOURS - (System.currentTimeMillis() - orderTime);
+        if (orderTime != -1) {
+            remain = TWO_HOURS + orderTime - System.currentTimeMillis()/1000;
         } else {
-            saveCurrentTime();
             remain = TWO_HOURS;
-        }*/
-        remain = TWO_HOURS - (System.currentTimeMillis() - orderTime);
+        }
+        Log.i("CollinWang","remain=" + remain);
         display(remain);
     }
 
@@ -65,14 +61,7 @@ public class CountDownView extends TextView {
         mTimer = null;
     }
 
-    private void saveCurrentTime() {
-        SharedPreferences.Editor editor = mSp.edit();
-        editor.putLong(ORDER_TIME, System.currentTimeMillis());
-        editor.commit();
-    }
-
     private void display(long remain) {
-        remain /= 1000;
         // 如果还没结束；
         if (remain > 0) {
             mHour = (int) (remain / 3600);
@@ -84,11 +73,6 @@ public class CountDownView extends TextView {
         }
     }
 
-    // 获取下单时间；
-    public long getOrderTime(Context context) {
-        long orderTime = mSp.getLong(ORDER_TIME, -1);
-        return orderTime;
-    }
 
     private TimerTask mTimerTask = new TimerTask() {
         public void run() {
@@ -107,7 +91,7 @@ public class CountDownView extends TextView {
                     mHandler.sendEmptyMessage(0);
                     return;
                 } else {
-                    mHour--;
+                    //mHour--;
                     mMinute = 59;
                     mSecond = 60;
                 }

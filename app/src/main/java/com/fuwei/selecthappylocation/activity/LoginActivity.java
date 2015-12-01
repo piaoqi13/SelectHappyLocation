@@ -69,7 +69,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     toShow(tip);
                     break;
                 case LOGIN_SUCCEED_AND_HAVE_ORDER:
-                    // 我的选号
+                    Intent intent2 = new Intent(mContext, MySelectionActivity.class);
+                    Utils.toLeftAnim(mContext, intent2, true);
                     break;
             }
         };

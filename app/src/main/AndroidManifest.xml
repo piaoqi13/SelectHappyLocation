@@ -157,11 +157,6 @@
             android:name=".activity.BirthdaySelectionActivity"
             android:screenOrientation="portrait">
         </activity>
-        <!-- 福位详情CollinWang -->
-        <activity
-            android:name=".activity.SelectionDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <!-- 我的选号 -->
         <activity
             android:name=".activity.MySelectionActivity"

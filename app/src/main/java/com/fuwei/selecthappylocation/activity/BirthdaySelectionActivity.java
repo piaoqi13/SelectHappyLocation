@@ -1,6 +1,7 @@
 package com.fuwei.selecthappylocation.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -44,8 +45,8 @@ public class BirthdaySelectionActivity extends BaseActivity implements View.OnCl
             switch (msg.what) {
                 case GET_BIRTHDAY_SELECT_SUCCEED:
                     mLoading.dismiss();
-                    //Intent intent = new Intent(mContext, SelectionDetailActivity.class);
-                    //Utils.toLeftAnim(mContext, intent, false);
+                    Intent intent = new Intent(mContext, MySelectionActivity.class);
+                    Utils.toLeftAnim(mContext, intent, true);
                     break;
                 case GET_BIRTHDAY_SELECT_FAILED:
                     mLoading.dismiss();

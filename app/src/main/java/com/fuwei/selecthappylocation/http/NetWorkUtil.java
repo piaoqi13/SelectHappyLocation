@@ -171,6 +171,50 @@ public class NetWorkUtil {
 
     }
 
+    public static void getMyNumber(final ReqListener listener) {
+        HttpClient.getInstance().doWork(Constant.getMyNumberUrl(), HttpParams.getMyNumberParams(), new HttpCallBack() {
+            @Override
+            public void succeed(int statusCode, String content) {
+
+                EasyLogger.i(TAG, "succeed");
+
+                try {
+                    JSONObject jsonObject = new JSONObject(content);
+                    if (jsonObject.optInt("error") == 1) {// error等于1flag等于-1
+
+                        EasyLogger.i(TAG, "succeed0");
+
+                        listener.onUpdate(Event.EVENT_GET_MY_SELECTION_FAIL, jsonObject.optString("msg"));
+                    } else {
+
+                        if (jsonObject.optInt("flag") == 0) {   // 有订单,无论是否支付字段一样
+                            listener.onUpdate(Event.EVENT_GET_MY_SELECTION_SUCCESS, null);
+
+                            EasyLogger.i(TAG, "succeed1");
+
+                        } else {// flag等于1或2都走此分支
+
+                            EasyLogger.i(TAG, "succeed2");
+
+                            Gson gson = new Gson();
+                            Object obj = gson.fromJson(jsonObject.toString(), ResultLoginInfo.class);
+                            listener.onUpdate(Event.EVENT_GET_MY_SELECTION_SUCCESS, obj);
+                        }
+                    }
+                } catch (JSONException e) {
+                    EasyLogger.e("NetWorkUtil", "getMyNumberCatch=", e);
+                    listener.onUpdate(Event.EVENT_GET_MY_SELECTION_FAIL, e.toString());
+                }
+            }
+
+            @Override
+            public void failed(Throwable error, String content) {
+                EasyLogger.e(TAG, "getMyNumber failed------error=" + error + "；content=" + content);
+                listener.onUpdate(Event.EVENT_GET_MY_SELECTION_FAIL, setFailedInfo(error));
+            }
+        });
+    }
+
     // 非正常失败返回码
     private static String setFailedInfo(Throwable error) {
         String content = "服务器未知错误";// 404及其他

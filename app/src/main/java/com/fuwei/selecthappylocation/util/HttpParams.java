@@ -32,9 +32,9 @@ public class HttpParams {
     }
 
     // 我的选号参数
-    public static RequestParams getMyNumberParams(String username) {
+    public static RequestParams getMyNumberParams() {
         RequestParams params = new RequestParams();
-        params.put("username", username);
+        params.put("bodyId", Settings.getString(Settings.BODY.BODY_ID, "", true));
         return params;
     }
 }

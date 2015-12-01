@@ -1,5 +1,6 @@
 package com.fuwei.selecthappylocation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -167,7 +168,8 @@ public class RanSecActivity extends BaseActivity implements View.OnClickListener
                         switch (event) {
                             case EVENT_SUBMIT_RANDOM_SELECTION_SUCCESS:
                                 mLoading.dismiss();
-                                // 我的选号
+                                Intent intent = new Intent(mContext, MySelectionActivity.class);
+                                Utils.toLeftAnim(mContext, intent, true);
                                 break;
                             case EVENT_SUBMIT_RANDOM_SELECTION_FAIL:
                                 mLoading.dismiss();
