@@ -91,7 +91,7 @@ public class CountDownView extends TextView {
                     mHandler.sendEmptyMessage(0);
                     return;
                 } else {
-                    //mHour--;
+                    mHour--;
                     mMinute = 59;
                     mSecond = 60;
                 }

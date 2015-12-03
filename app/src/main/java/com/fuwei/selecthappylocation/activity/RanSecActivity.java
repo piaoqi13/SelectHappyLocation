@@ -214,13 +214,19 @@ public class RanSecActivity extends BaseActivity implements View.OnClickListener
                             sb.append(number);
                             mResultNumber = sb.toString();
                             EasyLogger.i("DebugLog", " resultNumber : " + mResultNumber);
-                            // 暂时放在这里CollinWang1130
-                            if (isHaveTimeSelection == 1) {
-                                mBegin.setText("再选一次");
+
+                            if (Settings.getBoolean("is_have_one_time", true, true)) {
                                 mConfirm.setVisibility(View.VISIBLE);
-                            } else if (isHaveTimeSelection == 2) {
-                                mBegin.setEnabled(false);
-                                mConfirm.setVisibility(View.VISIBLE);
+                                toShow("您没有再次选号机会了噢");
+                            } else {
+                                // 暂时放在这里CollinWang1130
+                                if (isHaveTimeSelection == 1) {
+                                    mBegin.setText("再选一次");
+                                    mConfirm.setVisibility(View.VISIBLE);
+                                } else if (isHaveTimeSelection == 2) {
+                                    mBegin.setEnabled(false);
+                                    mConfirm.setVisibility(View.VISIBLE);
+                                }
                             }
                         }
                         break;

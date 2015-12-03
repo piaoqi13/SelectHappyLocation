@@ -48,6 +48,9 @@ public class NetWorkUtil {
 
                             EasyLogger.i(TAG, "succeed1");
 
+                        } else if (jsonObject.optInt("flag") == 3) {
+                            Settings.setBoolean("is_have_one_time", true, true);
+                            listener.onUpdate(Event.EVENT_LOGIN_SUCCESS, null);
                         } else {// flag等于1或2都走此分支
 
                             EasyLogger.i(TAG, "succeed2");
@@ -193,9 +196,6 @@ public class NetWorkUtil {
                             EasyLogger.i(TAG, "succeed1");
 
                         } else {// flag等于1或2都走此分支
-
-                            EasyLogger.i(TAG, "succeed2");
-
                             Gson gson = new Gson();
                             Object obj = gson.fromJson(jsonObject.toString(), ResultLoginInfo.class);
                             listener.onUpdate(Event.EVENT_GET_MY_SELECTION_SUCCESS, obj);
